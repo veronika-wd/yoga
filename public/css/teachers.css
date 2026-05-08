@@ -1,0 +1,44 @@
+.teacher_name {
+    margin-bottom: 10px;
+}
+
+.teachers_haracteristica {
+    margin-bottom: 50px;
+    color: #3F2A15;;
+}
+
+.description {
+    width: 63%;
+    background-color: #171009;
+    color: #ECE1C0;
+    padding: 40px;
+    border-radius: 30px;
+    margin-bottom: 100px;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width: 420px) {
+    header {
+        margin-bottom: 20px;
+    }
+
+    .teachers_haracteristica {
+        margin-bottom: 10px;
+    }
+
+    .description {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .description p {
+        font-size: 14px;
+    }
+}
