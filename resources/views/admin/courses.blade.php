@@ -76,7 +76,7 @@
         @foreach($courses as $course)
             <tr>
                 <td data-label="Название">{{ $course->name }}</td>
-                <td data-label="Описание">{{ $course->description }}</td>
+                <td data-label="Описание">{{ Str::limit($course->description, 70) }}</td>
                 <td data-label="Цена">{{ $course->price }} ₽</td>
                 <td data-label="Действия" class="actions">
                     <a href="{{ route('courses.edit', $course) }}" class="delete-btn">Изменить</a>

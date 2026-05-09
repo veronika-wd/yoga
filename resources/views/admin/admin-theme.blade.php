@@ -7,6 +7,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     @stack('styles')
 
     <title>Главная</title>
@@ -77,6 +78,12 @@
                                     d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.501 0-4.88-.83-6.75-2.24l1.22-1.22c1.61 1.06 3.69 1.67 5.53 1.67s3.92-.61 5.53-1.67l1.22 1.22C16.88 17.37 14.5 18.2 12 18.2z"/>
                             </svg>
                             Онлайн-курсы</a></li>
+                    <li><a href="{{ route('admin.calls') }}">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.501 0-4.88-.83-6.75-2.24l1.22-1.22c1.61 1.06 3.69 1.67 5.53 1.67s3.92-.61 5.53-1.67l1.22 1.22C16.88 17.37 14.5 18.2 12 18.2z"/>
+                            </svg>
+                            Звонки</a></li>
                 </ul>
             </aside>
             <main class="content">
@@ -94,7 +101,7 @@
 
         <a href="#">Политика конфиденциальности</a>
         <a href="#">Пользовательское соглашение</a>
-        <a href="admin/admin_passes.html">Админка</a>
+        <a href="{{ route('admin.applications') }}">Админка</a>
     </div>
 
     <nav>

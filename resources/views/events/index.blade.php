@@ -6,170 +6,34 @@
 @section('content')
     <h1>Предстоящие события</h1>
 
-    <section class="filter">
-        <div class="input-container">
-            <select name="date" id="date">
-                <option value="" selected hidden>ДАТЫ</option>
-                <option value="">Дата</option>
-                <option value="">Дата</option>
-                <option value="">Дата</option>
-                <option value="">Дата</option>
-            </select>
-        </div>
-
-        <div class="input-container">
-            <select name="event" id="event">
-                <option value="" selected hidden>ТИП СОБЫТИЯ</option>
-                <option value="">Йога</option>
-                <option value="">Кундалини-йога</option>
-                <option value="">Звукотерапия</option>
-                <option value="">Гвоздестояние</option>
-            </select>
-        </div>
-    </section>
-
     <section class="subscription">
         <div class="blocks_subscription">
+
+            @foreach($events as $event)
             <div class="block_subscription">
                 <div class="img-container">
-                    <img src="img/studio.png" alt="Абонимент">
+                    <img src="{{ \Illuminate\Support\Facades\Storage::url($event->image) }}" alt="Абонимент">
                 </div>
 
                 <div class="content">
-                    <h3>Звукотерапия</h3>
-                    <p>Преподаватель</p>
-                    <p>Цена</p>
-                    <p><img src="img/icons/clock.png" alt="Часы"> 90 минут</p>
+                    <h3>{{ $event->name }}</h3>
+                    <p>{{ $event->teacher->name }}</p>
+                    <p>{{ $event->price }}</p>
+                    <p><img src="img/icons/clock.png" alt="Часы">{{ $event->time }} минут</p>
+                    <a href="{{ route('events.show', $event) }}" class="btn">Подробнее</a>
                 </div>
 
                 <div class="date">
-                    <p>АПР.</p>
-                    <p>22</p>
+                    <p>{{ Str::upper($event->datetime->translatedFormat('M'))  }}</p>
+                    <p>{{ date_format($event->datetime, 'd') }}</p>
                 </div>
             </div>
-            <div class="block_subscription">
-                <div class="img-container">
-                    <img src="img/studio.png" alt="Абонимент">
-                </div>
-
-                <div class="content">
-                    <h3>Звукотерапия</h3>
-                    <p>Преподаватель</p>
-                    <p>Цена</p>
-                    <p><img src="img/icons/clock.png" alt="Часы"> 90 минут</p>
-                </div>
-
-                <div class="date">
-                    <p>АПР.</p>
-                    <p>22</p>
-                </div>
-            </div>
-            <div class="block_subscription">
-                <div class="img-container">
-                    <img src="img/studio.png" alt="Абонимент">
-                </div>
-
-                <div class="content">
-                    <h3>Звукотерапия</h3>
-                    <p>Преподаватель</p>
-                    <p>Цена</p>
-                    <p><img src="img/icons/clock.png" alt="Часы"> 90 минут</p>
-                </div>
-
-                <div class="date">
-                    <p>АПР.</p>
-                    <p>22</p>
-                </div>
-            </div>
-            <div class="block_subscription">
-                <div class="img-container">
-                    <img src="img/studio.png" alt="Абонимент">
-                </div>
-
-                <div class="content">
-                    <h3>Звукотерапия</h3>
-                    <p>Преподаватель</p>
-                    <p>Цена</p>
-                    <p><img src="img/icons/clock.png" alt="Часы"> 90 минут</p>
-                </div>
-
-                <div class="date">
-                    <p>АПР.</p>
-                    <p>22</p>
-                </div>
-            </div>
-            <div class="block_subscription">
-                <div class="img-container">
-                    <img src="img/studio.png" alt="Абонимент">
-                </div>
-
-                <div class="content">
-                    <h3>Звукотерапия</h3>
-                    <p>Преподаватель</p>
-                    <p>Цена</p>
-                    <p><img src="img/icons/clock.png" alt="Часы"> 90 минут</p>
-                </div>
-
-                <div class="date">
-                    <p>АПР.</p>
-                    <p>22</p>
-                </div>
-            </div>
-            <div class="block_subscription">
-                <div class="img-container">
-                    <img src="img/studio.png" alt="Абонимент">
-                </div>
-
-                <div class="content">
-                    <h3>Звукотерапия</h3>
-                    <p>Преподаватель</p>
-                    <p>Цена</p>
-                    <p><img src="img/icons/clock.png" alt="Часы"> 90 минут</p>
-                </div>
-
-                <div class="date">
-                    <p>АПР.</p>
-                    <p>22</p>
-                </div>
-            </div>
-            <div class="block_subscription">
-                <div class="img-container">
-                    <img src="img/studio.png" alt="Абонимент">
-                </div>
-
-                <div class="content">
-                    <h3>Звукотерапия</h3>
-                    <p>Преподаватель</p>
-                    <p>Цена</p>
-                    <p><img src="img/icons/clock.png" alt="Часы"> 90 минут</p>
-                </div>
-
-                <div class="date">
-                    <p>АПР.</p>
-                    <p>22</p>
-                </div>
-            </div>
-            <div class="block_subscription">
-                <div class="img-container">
-                    <img src="img/studio.png" alt="Абонимент">
-                </div>
-
-                <div class="content">
-                    <h3>Звукотерапия</h3>
-                    <p>Преподаватель</p>
-                    <p>Цена</p>
-                    <p><img src="img/icons/clock.png" alt="Часы"> 90 минут</p>
-                </div>
-
-                <div class="date">
-                    <p>АПР.</p>
-                    <p>22</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 
-    <form class="start" id="startForm">
+    <form class="start" id="startForm" action="{{ route('calls.store') }}" method="post">
+        @csrf
         <div class="header">
             <h2>Не знаете, с чего начать?</h2>
             <p>Заполните форму ниже, мы свяжемся с Вами и поможем подобрать направление</p>
@@ -177,7 +41,7 @@
 
         <div class="fields">
             <input type="text" name="name" id="name" placeholder="Имя">
-            <input type="tel" name="phone_number" id="phone_number" placeholder="Номер телефона">
+            <input type="tel" name="phone" id="phone" placeholder="Номер телефона">
             <button type="submit" class="btn">Отправить</button>
         </div>
     </form>

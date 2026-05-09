@@ -12,7 +12,10 @@ class EventController extends Controller
 {
     public function index()
     {
-        return view('events.index');
+        $events = Event::orderByDesc('datetime')->get();
+        return view('events.index', [
+            'events' => $events
+        ]);
     }
 
     public function adminEvents()
@@ -31,7 +34,7 @@ class EventController extends Controller
             $imageName = uniqid('pic_') . '.' . $image->extension();
             $path = $image->storeAs('images', $imageName, 'public');
         } else {
-            $path = 'img/start.png';
+            $path = 'images/start.png';
         }
 
         Event::create([
@@ -80,5 +83,22 @@ class EventController extends Controller
     {
         $event->delete();
         return redirect()->back();
+    }
+
+    public function show(Event $event)
+    {
+        return view('events.show', [
+            'event' => $event
+        ]);
+    }
+
+    public function application(Event $event)
+    {
+        $event->applications()->create([
+            'user_id' => auth()->user()->id,
+        ]);
+
+        return redirect()->back();
+
     }
 }

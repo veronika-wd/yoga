@@ -10,7 +10,10 @@ class CoursesController extends Controller
 {
     public function index()
     {
-        return view('courses.index');
+        $courses = Course::all();
+        return view('courses.index', [
+            'courses' => $courses
+        ]);
     }
 
     public function adminCourses()
@@ -70,5 +73,12 @@ class CoursesController extends Controller
         }
         $course->delete();
         return redirect()->route('admin.courses');
+    }
+
+    public function show(Course $course)
+    {
+        return view('courses.show', [
+            'course' => $course
+        ]);
     }
 }

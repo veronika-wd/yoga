@@ -6,7 +6,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
     @stack('styles')
 
     <title>Главная</title>
@@ -21,16 +23,14 @@
                 <a href="{{ route('practices.index') }}">Практики</a>
                 <a href="{{ route('events.index') }}">Расписание</a>
                 <a href="{{ route('courses.index') }}">Онлайн-курсы</a>
-            </div>
-
-            <div>
+                <a href="{{ route('profile') }}">Профиль</a>
                 <a href="{{ route('teachers.index') }}">Преподаватели</a>
-                <a href="subscription.html">Абонементы</a>
-{{--                @auth--}}
-{{--                    <a href="{{ route('profile') }}">Личный кабинет</a>--}}
-{{--                @else--}}
-{{--                    <a href="{{ route('login.form') }}">Войти</a>--}}
-{{--                @endauth--}}
+                <a href="{{ route('admin.subscriptions') }}">Абонементы</a>
+                @auth
+                    <a href="{{ route('profile') }}">Личный кабинет</a>
+                @else
+                    <a href="{{ route('login.form') }}">Войти</a>
+                @endauth
             </div>
         </nav>
     </div>
@@ -53,7 +53,7 @@
 
         <a href="#">Политика конфиденциальности</a>
         <a href="#">Пользовательское соглашение</a>
-        <a href="admin/admin_passes.html">Админка</a>
+        <a href="{{ route('admin.applications') }}">Админка</a>
     </div>
 
     <nav>
