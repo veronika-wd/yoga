@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
+#[Guarded(['id'])]
 class Event extends Model
 {
-    protected $guarded = ['id'];
+    protected $casts = [
+        'datetime' => 'datetime',
+    ];
+
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
@@ -19,8 +23,4 @@ class Event extends Model
     {
         return $this->morphMany(Application::class, 'applicationable');
     }
-
-    protected $casts = [
-        'datetime' => 'datetime',
-    ];
 }

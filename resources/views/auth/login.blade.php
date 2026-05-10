@@ -71,6 +71,10 @@
             @enderror
         </div>
 
+        @error('auth')
+        <p class="error-message">{{ $message }}</p>
+        @enderror
+
         <button type="submit" class="btn-register">Войти</button>
     </form>
 

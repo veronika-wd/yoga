@@ -113,7 +113,9 @@
                     </div>
                 </div>
 
-                <a href="#" class="btn-enroll">Записаться</a>
+                <form action="{{ route('courses.appointment', $course) }}" method="post">
+                    <button type="submit" class="btn-enroll">Записаться</button>
+                </form>
             </div>
 
             <div class="col-sm-12 col-lg-6">

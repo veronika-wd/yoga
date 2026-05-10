@@ -3,31 +3,30 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index()
+    public function login(LoginRequest $request): RedirectResponse
     {
-        return view('auth.login');
-    }
-
-    public function login(LoginRequest $request)
-    {
-        Auth::attempt($request->only('phone', 'password'));
-        if (Auth::check()) {
-            return redirect()->route('home');
-        } else{
-            return redirect()->back()->withErrors([
-                'auth' => 'Неверный телефон или пароль',
-            ]);
+        if (
+            !Auth::attempt([
+                'phone' => $request->phone,
+                'password' => $request->password,
+            ])
+        ) {
+            return back()->withErrors(['auth' => 'Неверный телефон или пароль']);
         }
+
+        return redirect()->route('home');
     }
 
-    public function logout()
+    public function logout(): RedirectResponse
     {
-        auth()->logout();
-        return redirect()->back();
+        Auth::logout();
+
+        return back();
     }
 }

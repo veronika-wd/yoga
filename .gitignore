@@ -25,7 +25,10 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+.osp
 
 # Project exclude paths
 /storage/app/
-/storage/framework/
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseRequest;
 use App\Models\Course;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Storage;
 
 class CoursesController extends Controller
@@ -26,7 +28,7 @@ class CoursesController extends Controller
 
     public function store(CourseRequest $request)
     {
-        if($request->hasFile('video')){
+        if ($request->hasFile('video')) {
             $video = $request->file('video');
             $videoName = uniqid('vid_') . '.' . $video->extension();
             $path = $video->storeAs('video', $videoName, 'public');
@@ -49,8 +51,9 @@ class CoursesController extends Controller
         ]);
     }
 
-    public function update(CourseRequest $request, Course $course){
-        if($request->hasFile('video')){
+    public function update(CourseRequest $request, Course $course)
+    {
+        if ($request->hasFile('video')) {
             Storage::delete($course->video);
             $video = $request->file('video');
             $videoName = uniqid('vid_') . '.' . $video->extension();
@@ -67,8 +70,9 @@ class CoursesController extends Controller
         return redirect()->route('admin.courses');
     }
 
-    public function destroy(Course $course){
-        if($course->video){
+    public function destroy(Course $course)
+    {
+        if ($course->video) {
             Storage::delete($course->video);
         }
         $course->delete();
@@ -77,8 +81,13 @@ class CoursesController extends Controller
 
     public function show(Course $course)
     {
-        return view('courses.show', [
-            'course' => $course
-        ]);
+        return view('courses.show', ['course' => $course]);
+    }
+
+    public function appointment(Course $course): RedirectResponse
+    {
+        $course->applications()->create(['user_id' => Auth::id()]);
+
+        return redirect()->back();
     }
 }

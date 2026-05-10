@@ -12,13 +12,20 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
+// Публичные
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/register', [RegisterController::class, 'index'])->name('register.form');
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
+// Не авторизованный пользователь
+Route::middleware('guest')->group(function () {
+    // Регистрация
+    Route::view('/register', 'auth.register')->name('register.form');
+    Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
-Route::get('/login', [LoginController::class, 'index'])->name('login.form');
-Route::post('/login', [LoginController::class, 'login'])->name('login');
+    // Авторизация
+    Route::view('/login', 'auth.login')->name('login.form');
+    Route::post('/login', [LoginController::class, 'login'])->name('login');
+});
+
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
 
@@ -27,13 +34,12 @@ Route::get('/practices', [PracticeController::class, 'index'])->name('practices.
 Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers.index');
 Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
 Route::get('/courses/{course}', [CoursesController::class, 'show'])->name('courses.show');
+Route::post('/courses/{course}/appointment', [CoursesController::class, 'appointment'])->name('courses.appointment');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
 Route::prefix('admin')->group(function () {
     Route::get('/subscriptions', [SubscriptionController::class, 'adminSubscription'])->name('admin.subscriptions');
-    Route::get('/applications', function () {
-        return view('admin.applications');
-    })->name('admin.applications');
+    Route::view('/applications', 'admin.applications')->name('admin.applications');
     Route::get('/events', [EventController::class, 'adminEvents'])->name('admin.events');
     Route::get('/teachers', [TeacherController::class, 'adminTeachers'])->name('admin.teachers');
     Route::get('/courses', [CoursesController::class, 'adminCourses'])->name('admin.courses');

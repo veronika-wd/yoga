@@ -2,36 +2,49 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
+#[Guarded(['id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
-
-    protected $guarded = ['id'];
-
+    protected $casts = [
+        'password' => 'hashed',
+    ];
 
     public function applications(): HasMany
     {
         return $this->hasMany(Application::class);
     }
 
-    protected function casts(): array
+    protected function courses(): Attribute
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return Attribute::make(
+            get: fn() => $this->applications
+                ->where('applicationable_type', Course::class)
+                ->map(fn(Application $application) => $application->applicationable),
+        );
+    }
+
+    protected function subscriptions(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->applications
+                ->where('applicationable_type', Subscription::class)
+                ->map(fn(Application $application) => $application->applicationable),
+        );
+    }
+
+    protected function events(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->applications
+                ->where('applicationable_type', Event::class)
+                ->map(fn(Application $application) => $application->applicationable),
+        );
     }
 }
