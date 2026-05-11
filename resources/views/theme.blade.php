@@ -65,7 +65,7 @@
         <a href="{{ route('teachers') }}">Преподаватели</a>
         <a href="{{ route('practices') }}">Практики</a>
         <a href="{{ route('events.index') }}">Расписание</a>
-        <a href="subscription.html">Абонементы</a>
+        <a href="{{ route('subscriptions') }}">Абонементы</a>
     </nav>
 
     <div class="contacts">
