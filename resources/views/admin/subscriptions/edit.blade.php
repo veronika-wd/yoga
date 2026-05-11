@@ -4,7 +4,7 @@
 @endpush
 @section('content')
     <h2 class="section-title">Изменить абонемент</h2>
-    <form action="{{ route('subscriptions.update', $subscription) }}" method="post">
+    <form action="{{ route('admin.subscriptions.update', $subscription) }}" method="post">
         @method('PATCH')
         @csrf
         <div class="form-group">

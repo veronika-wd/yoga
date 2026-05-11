@@ -48,7 +48,7 @@
             <aside class="sidebar">
                 <h2>Меню</h2>
                 <ul class="nav">
-                    <li><a href="{{ route('admin.subscriptions') }}">
+                    <li><a href="{{ route('admin.subscriptions.index') }}">
                             <svg viewBox="0 0 24 24">
                                 <path
                                     d="M3 13h1v7H3v-7zm0-8h1v5H3V5zm4 0h1v12H7V5zm4 0h1v12h-1V5zm4 0h1v12h-1V5zm4 0h1v7h-1V5zm0 10h1v2h-1v-2z"/>

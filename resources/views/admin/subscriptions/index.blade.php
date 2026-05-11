@@ -4,7 +4,7 @@
 @endpush
 @section('content')
     <h2 class="section-title">Добавить абонемент</h2>
-    <form action="{{ route('subscriptions.store') }}" method="post">
+    <form action="{{ route('admin.subscriptions.store') }}" method="post">
         @csrf
         <div class="form-group">
             <div class="input-field">
@@ -47,8 +47,8 @@
                 <td data-label="Кол-во занятий">{{ $subscription->count }}</td>
                 <td data-label="Цена">{{ $subscription->price }} ₽</td>
                 <td data-label="Действия" class="actions">
-                    <a href="{{ route('subscriptions.edit', $subscription) }}" class="delete-btn">Изменить</a>
-                    <form action="{{ route('subscriptions.destroy', $subscription) }}" method="post">
+                    <a href="{{ route('admin.subscriptions.edit', $subscription) }}" class="delete-btn">Изменить</a>
+                    <form action="{{ route('admin.subscriptions.destroy', $subscription) }}" method="post">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="delete-btn">Удалить</button>

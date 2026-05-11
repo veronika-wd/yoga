@@ -20,6 +20,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Практики
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 
+// Абонементы
+Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
+
 // Не авторизованный пользователь
 Route::middleware('guest')->group(function () {
     // Регистрация
@@ -42,6 +45,13 @@ Route::middleware('auth')->group(function () {
 
 // Админ
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+    // Абонементы
+    Route::get('/subscriptions', [\App\Http\Controllers\Admin\SubscriptionController::class, 'index'])->name('subscriptions.index');
+    Route::post('/subscriptions', [\App\Http\Controllers\Admin\SubscriptionController::class, 'store'])->name('subscriptions.store');
+    Route::get('/subscriptions/{subscription}/edit', [\App\Http\Controllers\Admin\SubscriptionController::class, 'edit'])->name('subscriptions.edit');
+    Route::patch('/subscriptions/{subscription}', [\App\Http\Controllers\Admin\SubscriptionController::class, 'update'])->name('subscriptions.update');
+    Route::delete('/subscriptions/{subscription}', [\App\Http\Controllers\Admin\SubscriptionController::class, 'destroy'])->name('subscriptions.destroy');
+
     // Практики
     Route::get('/events', [\App\Http\Controllers\Admin\EventController::class, 'index'])->name('events.index');
     Route::post('/events', [\App\Http\Controllers\Admin\EventController::class, 'store'])->name('events.store');
@@ -58,7 +68,6 @@ Route::post('/courses/{course}/appointment', [CoursesController::class, 'appoint
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
 Route::prefix('admin')->group(function () {
-    Route::get('/subscriptions', [SubscriptionController::class, 'adminSubscription'])->name('admin.subscriptions');
     Route::view('/applications', 'admin.applications')->name('admin.applications');
     Route::get('/teachers', [TeacherController::class, 'adminTeachers'])->name('admin.teachers');
     Route::get('/courses', [CoursesController::class, 'adminCourses'])->name('admin.courses');
@@ -71,11 +80,6 @@ Route::post('/teachers/store', [TeacherController::class, 'store'])->name('teach
 Route::get('/teachers/{teacher}/edit', [TeacherController::class, 'edit'])->name('teachers.edit');
 Route::patch('/teachers/{teacher}', [TeacherController::class, 'update'])->name('teachers.update');
 Route::delete('/teachers/{teacher}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
-
-Route::post('/subscriptions/store', [SubscriptionController::class, 'store'])->name('subscriptions.store');
-Route::get('/subscriptions/{subscription}/edit', [SubscriptionController::class, 'edit'])->name('subscriptions.edit');
-Route::patch('/subscriptions/{subscription}', [SubscriptionController::class, 'update'])->name('subscriptions.update');
-Route::delete('/subscriptions/{subscription}', [SubscriptionController::class, 'destroy'])->name('subscriptions.destroy');
 
 Route::post('/courses/store', [CoursesController::class, 'store'])->name('courses.store');
 Route::get('/courses/{course}/edit', [CoursesController::class, 'edit'])->name('courses.edit');
