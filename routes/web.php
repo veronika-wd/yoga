@@ -9,6 +9,7 @@ use App\Http\Controllers\CallController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,9 @@ Route::view('/teachers', 'teachers')->name('teachers');
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{course}', [CourseController::class, 'show'])->name('courses.show');
 
+// Вебхук ЮКассы
+Route::post('/yookassa/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');
+
 // Не авторизованный пользователь
 Route::middleware('guest')->group(function () {
     // Регистрация
@@ -54,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/events/{event}/application', [EventController::class, 'application'])->name('events.application');
 
     // Курсы
-    Route::post('/courses/{course}/appointment', [CourseController::class, 'appointment'])->name('courses.appointment');
+    Route::post('/courses/{course}/pay', [PaymentController::class, 'pay'])->name('pay');
 
     // Звонки
     Route::post('/calls', [CallController::class, 'store'])->name('calls.store');
