@@ -13,7 +13,7 @@ class Course extends Model
 {
     public function applications(): MorphMany
     {
-        return $this->morphMany(Application::class, 'applicationable');
+        return $this->morphMany(Application::class, 'applicable');
     }
 
     public function lessons(): HasMany

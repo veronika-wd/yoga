@@ -26,8 +26,8 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: fn() => $this->applications
-                ->where('applicationable_type', Course::class)
-                ->map(fn(Application $application) => $application->applicationable),
+                ->where('applicable_type', Course::class)
+                ->map(fn(Application $application) => $application->applicable),
         );
     }
 
@@ -35,8 +35,8 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: fn() => $this->applications
-                ->where('applicationable_type', Subscription::class)
-                ->map(fn(Application $application) => $application->applicationable),
+                ->where('applicable_type', Subscription::class)
+                ->map(fn(Application $application) => $application->applicable),
         );
     }
 
@@ -44,8 +44,8 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: fn() => $this->applications
-                ->where('applicationable_type', Event::class)
-                ->map(fn(Application $application) => $application->applicationable),
+                ->where('applicable_type', Event::class)
+                ->map(fn(Application $application) => $application->applicable),
         );
     }
 }

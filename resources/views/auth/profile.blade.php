@@ -1,6 +1,8 @@
+@php use App\Models\Course;use App\Models\Subscription; @endphp
 @extends('theme')
 
 @push('styles')
+    <link rel="stylesheet" href="{{ asset('css/courses.css') }}">
     <style>
         :root {
             --color-primary: #8b7355;
@@ -309,219 +311,199 @@
 @endpush
 
 @section('content')
-    <div class="dashboard-container">
-        <header class="dashboard-header">
-            <h1>Личный кабинет</h1>
-            <p class="user-greeting">Добро пожаловать, {{ auth()->user()->name }}</p>
-        </header>
+    <h2>Личный кабинет</h2>
+    <p class="user-greeting">Добро пожаловать, {{ auth()->user()->name }}</p>
+    <nav class="dashboard-nav" role="tablist">
+        <button class="nav-tab active" data-tab="courses" role="tab" aria-selected="true">Курсы</button>
+        <button class="nav-tab" data-tab="practices" role="tab" aria-selected="false">Практики</button>
+        <button class="nav-tab" data-tab="subscriptions" role="tab" aria-selected="false">Абонементы</button>
+        <button class="nav-tab" data-tab="requests" role="tab" aria-selected="false">Заявки</button>
+    </nav>
 
-        <nav class="dashboard-nav" role="tablist">
-            <button class="nav-tab active" data-tab="courses" role="tab" aria-selected="true">Курсы</button>
-            <button class="nav-tab" data-tab="practices" role="tab" aria-selected="false">Практики</button>
-            <button class="nav-tab" data-tab="subscriptions" role="tab" aria-selected="false">Абонементы</button>
-            <button class="nav-tab" data-tab="requests" role="tab" aria-selected="false">Заявки</button>
-        </nav>
+    <div class="dashboard-content">
+        <!-- КУРСЫ -->
+        <div class="tab-panel active" id="courses" role="tabpanel">
+            @if($courses->isNotEmpty())
+                <div class="row g-3 px-3 mb-3">
+                    @foreach($courses as $course)
+                        <div class="col-sm-12 col-lg-3">
+                            <div class="course-card h-100">
+                                <h3 class="course-title">{{ $course->name }}</h3>
 
-        <div class="dashboard-content">
-            <!-- КУРСЫ -->
-            <div class="tab-panel active" id="courses" role="tabpanel">
-                @if($courses->isNotEmpty())
-                    <div class="content-grid">
-                        @php
-                            /** @var \App\Models\Course $course */
-                        @endphp
+                                @if($course->description)
+                                    <p class="course-description">
+                                        {{ Str::limit($course->description, 100) }}
+                                    </p>
+                                @endif
 
-                        @foreach($courses as $course)
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">{{ $course->name }}</h3>
-
-                                    <span class="badge {{ $course->is_active ? 'badge-active' : 'badge-expired' }}">
-                                        {{ $course->is_active ? 'Активен' : 'Завершён' }}
-                                    </span>
-                                </div>
-
-                                <p class="card-meta">{{ Str::limit($course->description, 80) }}</p>
-
-                                <div class="card-footer">
-                                    <span class="meta-small"
-                                          style="font-size:13px;color:var(--color-muted);font-weight:300;">Прогресс: {{ $course->progress ?? 0 }}%
-                                    </span>
-
-                                    <a href="{{ route('courses.show', $course) }}" class="btn-outline">Перейти</a>
-                                </div>
+                                <a href="{{ route('profile.courses.show', $course) }}" class="btn-enroll w-100 text-center">
+                                    Открыть
+                                </a>
                             </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="empty-state">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
-                             stroke-linejoin="round">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                        </svg>
-                        <p>Вы ещё не записаны ни на один курс</p>
-                    </div>
-                @endif
-            </div>
+                        </div>
 
-            <!-- ПРАКТИКИ -->
-            <div class="tab-panel" id="practices" role="tabpanel">
-                {{--                @if($events->isNotEmpty())--}}
-                {{--                    <div class="content-grid">--}}
-                {{--                        @foreach($events as $event)--}}
-                {{--                            <div class="card">--}}
-                {{--                                <div class="card-header">--}}
-                {{--                                    <h3 class="card-title">{{ $event->title }}</h3>--}}
-                {{--                                    <span--}}
-                {{--                                        class="badge {{ $event->status == 'completed' ? 'badge-active' : 'badge-pending' }}">--}}
-                {{--                                                {{ $event->status == 'completed' ? 'Выполнено' : 'В процессе' }}--}}
-                {{--                                            </span>--}}
-                {{--                                </div>--}}
-                {{--                                <p class="card-meta">{{ Str::limit($event->description, 80) }}</p>--}}
-                {{--                                <div class="card-footer">--}}
-                {{--                                    <span class="meta-small"--}}
-                {{--                                          style="font-size:13px;color:var(--color-muted);font-weight:300;">Дедлайн: {{ $event->deadline?->format('d.m.Y') ?? '—' }}</span>--}}
-                {{--                                    <a href="{{ route('practice.show', $event->id) }}"--}}
-                {{--                                       class="btn-outline">Открыть</a>--}}
-                {{--                                </div>--}}
-                {{--                            </div>--}}
-                {{--                        @endforeach--}}
-                {{--                    </div>--}}
-                {{--                @else--}}
-                {{--                    <div class="empty-state">--}}
-                {{--                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"--}}
-                {{--                             stroke-linejoin="round">--}}
-                {{--                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>--}}
-                {{--                            <polyline points="14 2 14 8 20 8"/>--}}
-                {{--                            <line x1="16" y1="13" x2="8" y2="13"/>--}}
-                {{--                            <line x1="16" y1="17" x2="8" y2="17"/>--}}
-                {{--                        </svg>--}}
-                {{--                        <p>Нет доступных практик</p>--}}
-                {{--                    </div>--}}
-                {{--                @endif--}}
-            </div>
-
-            <!-- АБОНЕМЕНТЫ -->
-            <div class="tab-panel" id="subscriptions" role="tabpanel">
-                @if($subscriptions->isNotEmpty())
-                    <div class="content-grid">
-                        @php
-                            /** @var \App\Models\Subscription $sub */
-                        @endphp
-
-                        @foreach($subscriptions as $sub)
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">{{ $sub->plan_name }}</h3>
-                                    <span class="badge {{ $sub->is_active ? 'badge-active' : 'badge-expired' }}">
-                                                {{ $sub->is_active ? 'Активен' : 'Истёк' }}
-                                            </span>
-                                </div>
-                                <p class="card-meta">
-                                    Действует до: {{ $sub->expires_at?->format('d.m.Y') ?? '—' }}<br>
-                                    Осталось: {{ $sub->is_active ? max(0, now()->diffInDays($sub->expires_at)) : 0 }}
-                                    дней
-                                </p>
-                                <div class="card-footer">
-                                    <span class="price"
-                                          style="font-size:18px;font-weight:400;color:var(--color-text-dark);">{{ number_format($sub->price, 0, '.', ' ') }} ₽</span>
-                                    @if(!$sub->is_active)
-                                        <a href="{{ route('subscription.renew', $sub->id) }}" class="btn-outline">Продлить</a>
-                                    @else
-                                        <button class="btn-outline" disabled>Действует</button>
-                                    @endif
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="empty-state">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
-                             stroke-linejoin="round">
-                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
-                            <line x1="1" y1="10" x2="23" y2="10"/>
-                        </svg>
-                        <p>У вас нет активных абонементов</p>
-                    </div>
-                @endif
-            </div>
-
-            <!-- Секция ЗАЯВКИ (Вставьте это вместо предыдущего блока id="requests") -->
-            <div class="tab-panel" id="requests" role="tabpanel">
-                {{--                @if($applications->isNotEmpty())--}}
-                {{--                    <div class="request-list">--}}
-                {{--                        @foreach($applications as $app)--}}
-                {{--                            @php--}}
-                {{--                                $entity = $app->applicationable;--}}
-                {{--                                $typeClass = class_basename($app->applicationable_type); // Course, Events, Subscription--}}
-
-                {{--                                // Приводим к нижнему регистру для роута (events -> event, Course -> course)--}}
-                {{--                                // Если ваши роуты во множественном числе (events.show), уберите Str::singular--}}
-                {{--                                $routeType = Str::singular($typeClass);--}}
-                {{--                                $routeName = $routeType . '.show';--}}
-
-                {{--                                // Получаем название сущности безопасно--}}
-                {{--                                $entityName = data_get($entity, 'name') ?? data_get($entity, 'title') ?? 'Без названия';--}}
-                {{--                            @endphp--}}
-
-                {{--                            <div class="request-item">--}}
-                {{--                                <div style="flex:1;">--}}
-                {{--                                    <!-- Тип заявки -->--}}
-                {{--                                    <div class="request-type">--}}
-                {{--                                        @switch($typeClass)--}}
-                {{--                                            @case('Course') Курс @break--}}
-                {{--                                            @case('Events') Событие @break--}}
-                {{--                                            @case('Subscription') Абонемент @break--}}
-                {{--                                            @default Заявка--}}
-                {{--                                        @endswitch--}}
-                {{--                                    </div>--}}
-
-                {{--                                    <!-- Название -->--}}
-                {{--                                    <h4 class="request-title">{{ $entityName }}</h4>--}}
-
-                {{--                                    <!-- Мета-информация -->--}}
-                {{--                                    <div class="request-meta">--}}
-                {{--                                        Подано: {{ $app->created_at->format('d.m.Y') }}--}}
-                {{--                                        @if($app->comment) · {{ Str::limit($app->comment, 50) }} @endif--}}
-                {{--                                    </div>--}}
-                {{--                                </div>--}}
-
-                {{--                                <!-- Статус и кнопка -->--}}
-                {{--                                <div class="request-status">--}}
-                {{--                        <span class="badge--}}
-                {{--                            @if($app->status === 'approved') badge-active--}}
-                {{--                            @elseif($app->status === 'rejected') badge-rejected--}}
-                {{--                            @else badge-pending @endif">--}}
-
-                {{--                            {{ $app->status_label ?? $app->status }}--}}
-                {{--                        </span>--}}
-
-                {{--                                    @if($app->status === 'approved' && $entity)--}}
-                {{--                                        <!-- Кнопка перехода к сущности -->--}}
-                {{--                                        <a href="{{ route($routeName, $entity->id) }}"--}}
-                {{--                                           class="btn-outline"--}}
-                {{--                                           style="margin-top:8px; padding:8px 16px; font-size:11px;">--}}
-                {{--                                            Перейти--}}
-                {{--                                        </a>--}}
-                {{--                                    @endif--}}
-                {{--                                </div>--}}
-                {{--                            </div>--}}
-                {{--                        @endforeach--}}
-                {{--                    </div>--}}
-                {{--                @else--}}
-                {{--                    <div class="empty-state">--}}
-                {{--                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">--}}
-                {{--                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>--}}
-                {{--                            <line x1="16" y1="13" x2="8" y2="13"/>--}}
-                {{--                            <line x1="16" y1="17" x2="8" y2="17"/>--}}
-                {{--                            <polyline points="14 2 14 8 20 8"/>--}}
-                {{--                        </svg>--}}
-                {{--                        <p>У вас нет активных заявок</p>--}}
-                {{--                    </div>--}}
-                {{--                @endif--}}
-            </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                    <p>Вы ещё не записаны ни на один курс</p>
+                </div>
+            @endif
         </div>
+
+        <!-- ПРАКТИКИ -->
+        <div class="tab-panel" id="practices" role="tabpanel">
+            {{--                @if($events->isNotEmpty())--}}
+            {{--                    <div class="content-grid">--}}
+            {{--                        @foreach($events as $event)--}}
+            {{--                            <div class="card">--}}
+            {{--                                <div class="card-header">--}}
+            {{--                                    <h3 class="card-title">{{ $event->title }}</h3>--}}
+            {{--                                    <span--}}
+            {{--                                        class="badge {{ $event->status == 'completed' ? 'badge-active' : 'badge-pending' }}">--}}
+            {{--                                                {{ $event->status == 'completed' ? 'Выполнено' : 'В процессе' }}--}}
+            {{--                                            </span>--}}
+            {{--                                </div>--}}
+            {{--                                <p class="card-meta">{{ Str::limit($event->description, 80) }}</p>--}}
+            {{--                                <div class="card-footer">--}}
+            {{--                                    <span class="meta-small"--}}
+            {{--                                          style="font-size:13px;color:var(--color-muted);font-weight:300;">Дедлайн: {{ $event->deadline?->format('d.m.Y') ?? '—' }}</span>--}}
+            {{--                                    <a href="{{ route('practice.show', $event->id) }}"--}}
+            {{--                                       class="btn-outline">Открыть</a>--}}
+            {{--                                </div>--}}
+            {{--                            </div>--}}
+            {{--                        @endforeach--}}
+            {{--                    </div>--}}
+            {{--                @else--}}
+            {{--                    <div class="empty-state">--}}
+            {{--                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"--}}
+            {{--                             stroke-linejoin="round">--}}
+            {{--                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>--}}
+            {{--                            <polyline points="14 2 14 8 20 8"/>--}}
+            {{--                            <line x1="16" y1="13" x2="8" y2="13"/>--}}
+            {{--                            <line x1="16" y1="17" x2="8" y2="17"/>--}}
+            {{--                        </svg>--}}
+            {{--                        <p>Нет доступных практик</p>--}}
+            {{--                    </div>--}}
+            {{--                @endif--}}
+        </div>
+
+        <!-- АБОНЕМЕНТЫ -->
+        <div class="tab-panel" id="subscriptions" role="tabpanel">
+            @if($subscriptions->isNotEmpty())
+                <div class="row g-3 px-3 mb-3">
+                    @foreach($subscriptions as $sub)
+                        <div class="col-sm-12 col-lg-3">
+                            <div class="course-card h-100">
+                                <h3 class="course-title">{{ $sub->name }}</h3>
+
+                                @if($sub->description)
+                                    <p class="course-description">
+                                        {{ Str::limit($sub->description, 100) }}
+                                    </p>
+                                    <span class="course-price text-center">{{ $sub->count }} занятий</span>
+                                @endif
+
+                                <div class="course-meta">
+                                    <span class="course-price">{{ number_format($sub->price, 0, '.', ' ') }} ₽</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
+                </div>
+            @else
+                <div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                        <line x1="1" y1="10" x2="23" y2="10"/>
+                    </svg>
+                    <p>У вас нет активных абонементов</p>
+                </div>
+            @endif
+        </div>
+
+        <!-- Секция ЗАЯВКИ (Вставьте это вместо предыдущего блока id="requests") -->
+        <div class="tab-panel" id="requests" role="tabpanel">
+            {{--                @if($applications->isNotEmpty())--}}
+            {{--                    <div class="request-list">--}}
+            {{--                        @foreach($applications as $app)--}}
+            {{--                            @php--}}
+            {{--                                $entity = $app->applicationable;--}}
+            {{--                                $typeClass = class_basename($app->applicationable_type); // Course, Events, Subscription--}}
+
+            {{--                                // Приводим к нижнему регистру для роута (events -> event, Course -> course)--}}
+            {{--                                // Если ваши роуты во множественном числе (events.show), уберите Str::singular--}}
+            {{--                                $routeType = Str::singular($typeClass);--}}
+            {{--                                $routeName = $routeType . '.show';--}}
+
+            {{--                                // Получаем название сущности безопасно--}}
+            {{--                                $entityName = data_get($entity, 'name') ?? data_get($entity, 'title') ?? 'Без названия';--}}
+            {{--                            @endphp--}}
+
+            {{--                            <div class="request-item">--}}
+            {{--                                <div style="flex:1;">--}}
+            {{--                                    <!-- Тип заявки -->--}}
+            {{--                                    <div class="request-type">--}}
+            {{--                                        @switch($typeClass)--}}
+            {{--                                            @case('Course') Курс @break--}}
+            {{--                                            @case('Events') Событие @break--}}
+            {{--                                            @case('Subscription') Абонемент @break--}}
+            {{--                                            @default Заявка--}}
+            {{--                                        @endswitch--}}
+            {{--                                    </div>--}}
+
+            {{--                                    <!-- Название -->--}}
+            {{--                                    <h4 class="request-title">{{ $entityName }}</h4>--}}
+
+            {{--                                    <!-- Мета-информация -->--}}
+            {{--                                    <div class="request-meta">--}}
+            {{--                                        Подано: {{ $app->created_at->format('d.m.Y') }}--}}
+            {{--                                        @if($app->comment) · {{ Str::limit($app->comment, 50) }} @endif--}}
+            {{--                                    </div>--}}
+            {{--                                </div>--}}
+
+            {{--                                <!-- Статус и кнопка -->--}}
+            {{--                                <div class="request-status">--}}
+            {{--                        <span class="badge--}}
+            {{--                            @if($app->status === 'approved') badge-active--}}
+            {{--                            @elseif($app->status === 'rejected') badge-rejected--}}
+            {{--                            @else badge-pending @endif">--}}
+
+            {{--                            {{ $app->status_label ?? $app->status }}--}}
+            {{--                        </span>--}}
+
+            {{--                                    @if($app->status === 'approved' && $entity)--}}
+            {{--                                        <!-- Кнопка перехода к сущности -->--}}
+            {{--                                        <a href="{{ route($routeName, $entity->id) }}"--}}
+            {{--                                           class="btn-outline"--}}
+            {{--                                           style="margin-top:8px; padding:8px 16px; font-size:11px;">--}}
+            {{--                                            Перейти--}}
+            {{--                                        </a>--}}
+            {{--                                    @endif--}}
+            {{--                                </div>--}}
+            {{--                            </div>--}}
+            {{--                        @endforeach--}}
+            {{--                    </div>--}}
+            {{--                @else--}}
+            {{--                    <div class="empty-state">--}}
+            {{--                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">--}}
+            {{--                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>--}}
+            {{--                            <line x1="16" y1="13" x2="8" y2="13"/>--}}
+            {{--                            <line x1="16" y1="17" x2="8" y2="17"/>--}}
+            {{--                            <polyline points="14 2 14 8 20 8"/>--}}
+            {{--                        </svg>--}}
+            {{--                        <p>У вас нет активных заявок</p>--}}
+            {{--                    </div>--}}
+            {{--                @endif--}}
+        </div>
+    </div>
     </div>
 @endsection
 

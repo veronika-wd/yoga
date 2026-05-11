@@ -7,18 +7,8 @@
     --color-bg: #faf9f7;
     --color-border: #e8e4dc;
     --color-cream: #f5f1e8;
-    --radius: 4px;
+    --radius: 30px;
     --transition: all 0.3s ease;
-}
-
-/* Сетка курсов */
-.courses-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 32px;
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 /* Карточка курса */
@@ -28,7 +18,10 @@
     border-radius: var(--radius);
     padding: 32px;
     transition: var(--transition);
-    position: relative;
+    /*position: relative;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .course-card:hover {
@@ -53,12 +46,13 @@
     color: var(--color-text-light);
     margin-bottom: 24px;
     font-weight: 300;
+    word-wrap: break-word;
 }
 
 /* Мета информация */
 .course-meta {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding-bottom: 20px;
     margin-bottom: 20px;
@@ -102,16 +96,6 @@
 .course-button:hover {
     background: var(--color-primary);
     color: white;
-}
-
-/* Бейдж видео (если есть) */
-.video-badge {
-    display: inline-block;
-    font-size: 11px;
-    color: var(--color-secondary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
 }
 
 /* Адаптивность */

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\Course\LessonController;
 use App\Http\Controllers\Admin\TeacherController;
+use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CallController;
 use App\Http\Controllers\CourseController;
@@ -24,6 +26,7 @@ Route::get('/events/{event}', [EventController::class, 'show'])->name('events.sh
 
 // Абонементы
 Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions');
+Route::get('/subscriptions/{subscription}', [SubscriptionController::class, 'show'])->name('subscriptions.show');
 
 // Преподаватели
 Route::view('/teachers', 'teachers')->name('teachers');
@@ -48,8 +51,7 @@ Route::middleware('auth')->group(function () {
     // Выход
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    // Профиль
-    Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+
 
     // Практики
     Route::post('/events/{event}/application', [EventController::class, 'application'])->name('events.application');
@@ -61,7 +63,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/calls', [CallController::class, 'store'])->name('calls.store');
 
     // Отзывы
-    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('review.store');
+
+    // Абонимент
+    Route::post('/subscriptions/{subscription}', [SubscriptionController::class, 'appointment'])->name('subscriptions.appointment');
+
+    // Профиль
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/courses/show/{course}', [ProfileController::class, 'course'])->name('profile.courses.show');
+    });
 });
 
 // Админ
