@@ -4,7 +4,7 @@
 @endpush
 @section('content')
     <h2 class="section-title">Добавить преподавателя</h2>
-    <form action="{{ route('teachers.store') }}" method="post">
+    <form action="{{ route('admin.teachers.store') }}" method="post">
         @csrf
         <div class="form-group">
             <div class="input-field">
@@ -43,8 +43,8 @@
                 <td data-label="Статус">На 10 занятий</td>
                 <td data-label="Описание">{{ $teacher->description }}</td>
                 <td data-label="Действия" class="actions">
-                    <a href="{{ route('teachers.edit',  $teacher) }}" class="delete-btn">Изменить</a>
-                    <form action="{{ route('teachers.destroy', $teacher) }}" method="post">
+                    <a href="{{ route('admin.teachers.edit',  $teacher) }}" class="delete-btn">Изменить</a>
+                    <form action="{{ route('admin.teachers.destroy', $teacher) }}" method="post">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="delete-btn">Удалить</button>

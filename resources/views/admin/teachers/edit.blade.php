@@ -4,7 +4,7 @@
 @endpush
 @section('content')
     <h2 class="section-title">Изменить преподавателя</h2>
-    <form action="{{ route('teachers.update', $teacher) }}" method="post">
+    <form action="{{ route('admin.teachers.update', $teacher) }}" method="post">
         @method('PATCH')
         @csrf
         <div class="form-group">

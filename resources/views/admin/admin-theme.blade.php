@@ -19,13 +19,13 @@
     <div class="header-wrapper">
         <nav>
             <div>
-                <a href="{{ route('practices.index') }}">Практики</a>
+                <a href="{{ route('practices') }}">Практики</a>
                 <a href="{{ route('events.index') }}">Расписание</a>
                 <a href="{{ route('courses.index') }}">Онлайн-курсы</a>
             </div>
 
             <div>
-                <a href="{{ route('teachers.index') }}">Преподаватели</a>
+                <a href="{{ route('teachers') }}">Преподаватели</a>
                 <a href="subscription.html">Абонементы</a>
                 {{--                @auth--}}
                 {{--                    <a href="{{ route('profile') }}">Личный кабинет</a>--}}
@@ -60,25 +60,25 @@
                                     d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                             </svg>
                             Практики</a></li>
-                    <li><a href="{{ route('admin.applications') }}">
+                    <li><a href="{{ route('admin.applications.index') }}">
                             <svg viewBox="0 0 24 24">
                                 <path
                                     d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.501 0-4.88-.83-6.75-2.24l1.22-1.22c1.61 1.06 3.69 1.67 5.53 1.67s3.92-.61 5.53-1.67l1.22 1.22C16.88 17.37 14.5 18.2 12 18.2z"/>
                             </svg>
                             Записи</a></li>
-                    <li><a href="{{ route('admin.teachers') }}">
+                    <li><a href="{{ route('admin.teachers.index') }}">
                             <svg viewBox="0 0 24 24">
                                 <path
                                     d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.501 0-4.88-.83-6.75-2.24l1.22-1.22c1.61 1.06 3.69 1.67 5.53 1.67s3.92-.61 5.53-1.67l1.22 1.22C16.88 17.37 14.5 18.2 12 18.2z"/>
                             </svg>
                             Преподаватели</a></li>
-                    <li><a href="{{ route('admin.courses') }}">
+                    <li><a href="{{ route('admin.courses.index') }}">
                             <svg viewBox="0 0 24 24">
                                 <path
                                     d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.501 0-4.88-.83-6.75-2.24l1.22-1.22c1.61 1.06 3.69 1.67 5.53 1.67s3.92-.61 5.53-1.67l1.22 1.22C16.88 17.37 14.5 18.2 12 18.2z"/>
                             </svg>
                             Онлайн-курсы</a></li>
-                    <li><a href="{{ route('admin.calls') }}">
+                    <li><a href="{{ route('admin.calls.index') }}">
                             <svg viewBox="0 0 24 24">
                                 <path
                                     d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.501 0-4.88-.83-6.75-2.24l1.22-1.22c1.61 1.06 3.69 1.67 5.53 1.67s3.92-.61 5.53-1.67l1.22 1.22C16.88 17.37 14.5 18.2 12 18.2z"/>
@@ -101,12 +101,12 @@
 
         <a href="#">Политика конфиденциальности</a>
         <a href="#">Пользовательское соглашение</a>
-        <a href="{{ route('admin.applications') }}">Админка</a>
+        <a href="{{ route('admin.applications.index') }}">Админка</a>
     </div>
 
     <nav>
-        <a href="{{ route('teachers.index') }}">Преподаватели</a>
-        <a href="{{ route('practices.index') }}">Практики</a>
+        <a href="{{ route('teachers') }}">Преподаватели</a>
+        <a href="{{ route('practices') }}">Практики</a>
         <a href="{{ route('events.index') }}">Расписание</a>
         <a href="subscription.html">Абонементы</a>
     </nav>

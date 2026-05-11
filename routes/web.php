@@ -3,13 +3,11 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CallController;
-use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 // Публичные
@@ -18,10 +16,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Практики
+Route::view('/practices', 'practices')->name('practices');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
+Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
 // Абонементы
-Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
+Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions');
+
+// Преподаватели
+Route::view('/teachers', 'teachers')->name('teachers');
+
+// Курсы
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+Route::get('/courses/{course}', [CourseController::class, 'show'])->name('courses.show');
 
 // Не авторизованный пользователь
 Route::middleware('guest')->group(function () {
@@ -41,6 +48,18 @@ Route::middleware('auth')->group(function () {
 
     // Профиль
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+
+    // Практики
+    Route::post('/events/{event}/application', [EventController::class, 'application'])->name('events.application');
+
+    // Курсы
+    Route::post('/courses/{course}/appointment', [CourseController::class, 'appointment'])->name('courses.appointment');
+
+    // Звонки
+    Route::post('/calls', [CallController::class, 'store'])->name('calls.store');
+
+    // Отзывы
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 });
 
 // Админ
@@ -58,33 +77,26 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/events/{event}/edit', [\App\Http\Controllers\Admin\EventController::class, 'edit'])->name('events.edit');
     Route::patch('/events/{event}', [\App\Http\Controllers\Admin\EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{event}', [\App\Http\Controllers\Admin\EventController::class, 'destroy'])->name('events.destroy');
+
+    // Записи
+    Route::view('/applications', 'admin.applications.index')->name('applications.index');
+
+    // Преподаватели
+    Route::get('/teachers', [\App\Http\Controllers\Admin\TeacherController::class, 'index'])->name('teachers.index');
+    Route::post('/teachers', [\App\Http\Controllers\Admin\TeacherController::class, 'store'])->name('teachers.store');
+    Route::get('/teachers/{teacher}/edit', [\App\Http\Controllers\Admin\TeacherController::class, 'edit'])->name('teachers.edit');
+    Route::patch('/teachers/{teacher}', [\App\Http\Controllers\Admin\TeacherController::class, 'update'])->name('teachers.update');
+    Route::delete('/teachers/{teacher}', [\App\Http\Controllers\Admin\TeacherController::class, 'destroy'])->name('teachers.destroy');
+
+    // Курсы
+    Route::get('/courses', [\App\Http\Controllers\Admin\CourseController::class, 'index'])->name('courses.index');
+
+    // Звонки
+    Route::get('/calls', [\App\Http\Controllers\Admin\CallController::class, 'index'])->name('calls.index');
+
+    // Курсы
+    Route::post('/courses', [\App\Http\Controllers\Admin\CourseController::class, 'store'])->name('courses.store');
+    Route::get('/courses/{course}/edit', [\App\Http\Controllers\Admin\CourseController::class, 'edit'])->name('courses.edit');
+    Route::patch('/courses/{course}', [\App\Http\Controllers\Admin\CourseController::class, 'update'])->name('courses.update');
+    Route::delete('/courses/{course}', [\App\Http\Controllers\Admin\CourseController::class, 'destroy'])->name('courses.destroy');
 });
-
-Route::get('/practices', [PracticeController::class, 'index'])->name('practices.index');
-Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers.index');
-Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
-Route::get('/courses/{course}', [CoursesController::class, 'show'])->name('courses.show');
-Route::post('/courses/{course}/appointment', [CoursesController::class, 'appointment'])->name('courses.appointment');
-Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
-
-Route::prefix('admin')->group(function () {
-    Route::view('/applications', 'admin.applications')->name('admin.applications');
-    Route::get('/teachers', [TeacherController::class, 'adminTeachers'])->name('admin.teachers');
-    Route::get('/courses', [CoursesController::class, 'adminCourses'])->name('admin.courses');
-    Route::get('/calls', [CallController::class, 'adminCalls'])->name('admin.calls');
-});
-
-Route::post('/events/{event}/application', [EventController::class, 'application'])->name('events.application');
-
-Route::post('/teachers/store', [TeacherController::class, 'store'])->name('teachers.store');
-Route::get('/teachers/{teacher}/edit', [TeacherController::class, 'edit'])->name('teachers.edit');
-Route::patch('/teachers/{teacher}', [TeacherController::class, 'update'])->name('teachers.update');
-Route::delete('/teachers/{teacher}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
-
-Route::post('/courses/store', [CoursesController::class, 'store'])->name('courses.store');
-Route::get('/courses/{course}/edit', [CoursesController::class, 'edit'])->name('courses.edit');
-Route::patch('/courses/{course}', [CoursesController::class, 'update'])->name('courses.update');
-Route::delete('/courses/{course}', [CoursesController::class, 'destroy'])->name('courses.destroy');
-
-Route::post('/calls/store', [CallController::class, 'store'])->name('calls.store');
-Route::post('/reviews/store', [ReviewController::class, 'store'])->name('review.store');

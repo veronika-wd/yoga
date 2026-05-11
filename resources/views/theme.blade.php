@@ -20,12 +20,12 @@
     <div class="header-wrapper">
         <nav>
             <div>
-                <a href="{{ route('practices.index') }}">Практики</a>
+                <a href="{{ route('practices') }}">Практики</a>
                 <a href="{{ route('events.index') }}">Расписание</a>
                 <a href="{{ route('courses.index') }}">Онлайн-курсы</a>
                 <a href="{{ route('profile') }}">Профиль</a>
-                <a href="{{ route('teachers.index') }}">Преподаватели</a>
-                <a href="{{ route('admin.subscriptions') }}">Абонементы</a>
+                <a href="{{ route('teachers') }}">Преподаватели</a>
+                <a href="{{ route('subscriptions') }}">Абонементы</a>
                 @auth
                     <a href="{{ route('profile') }}">Личный кабинет</a>
                 @else
@@ -53,12 +53,12 @@
 
         <a href="#">Политика конфиденциальности</a>
         <a href="#">Пользовательское соглашение</a>
-        <a href="{{ route('admin.applications') }}">Админка</a>
+        <a href="{{ route('admin.applications.index') }}">Админка</a>
     </div>
 
     <nav>
-        <a href="{{ route('teachers.index') }}">Преподаватели</a>
-        <a href="{{ route('practices.index') }}">Практики</a>
+        <a href="{{ route('teachers') }}">Преподаватели</a>
+        <a href="{{ route('practices') }}">Практики</a>
         <a href="{{ route('events.index') }}">Расписание</a>
         <a href="subscription.html">Абонементы</a>
     </nav>

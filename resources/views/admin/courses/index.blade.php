@@ -4,7 +4,7 @@
 @endpush
 @section('content')
     <h2 class="section-title">Добавить курс</h2>
-    <form action="{{ route('courses.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.courses.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <div class="input-field">
@@ -79,8 +79,8 @@
                 <td data-label="Описание">{{ Str::limit($course->description, 70) }}</td>
                 <td data-label="Цена">{{ $course->price }} ₽</td>
                 <td data-label="Действия" class="actions">
-                    <a href="{{ route('courses.edit', $course) }}" class="delete-btn">Изменить</a>
-                    <form action="{{ route('courses.destroy', $course) }}" method="post">
+                    <a href="{{ route('admin.courses.edit', $course) }}" class="delete-btn">Изменить</a>
+                    <form action="{{ route('admin.courses.destroy', $course) }}" method="post">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="delete-btn">Удалить</button>
