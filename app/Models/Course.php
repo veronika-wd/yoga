@@ -20,4 +20,9 @@ class Course extends Model
     {
         return $this->hasMany(Lesson::class, 'course_id');
     }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'course_id');
+    }
 }

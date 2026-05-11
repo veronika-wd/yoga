@@ -12,7 +12,8 @@
                 <span>{{ number_format($course->price, 0, '.', ' ') }} ₽</span>
             </div>
             <div class="details-item">
-                <form action="{{ route('courses.appointment', $course) }}" method="post">
+                <form action="{{ route('pay', $course) }}" method="post">
+                    @csrf
                     <button type="submit" class="btn-enroll">Купить</button>
                 </form>
             </div>
