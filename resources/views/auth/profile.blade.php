@@ -327,6 +327,10 @@
             <div class="tab-panel active" id="courses" role="tabpanel">
                 @if($courses->isNotEmpty())
                     <div class="content-grid">
+                        @php
+                            /** @var \App\Models\Course $course */
+                        @endphp
+
                         @foreach($courses as $course)
                             <div class="card">
                                 <div class="card-header">
@@ -363,27 +367,31 @@
 
             <!-- ПРАКТИКИ -->
             <div class="tab-panel" id="practices" role="tabpanel">
-                {{--                @if($practices->isNotEmpty())--}}
+                {{--                @if($events->isNotEmpty())--}}
                 {{--                    <div class="content-grid">--}}
-                {{--                        @foreach($practices as $practice)--}}
+                {{--                        @foreach($events as $event)--}}
                 {{--                            <div class="card">--}}
                 {{--                                <div class="card-header">--}}
-                {{--                                    <h3 class="card-title">{{ $practice->title }}</h3>--}}
-                {{--                                    <span class="badge {{ $practice->status == 'completed' ? 'badge-active' : 'badge-pending' }}">--}}
-                {{--                                {{ $practice->status == 'completed' ? 'Выполнено' : 'В процессе' }}--}}
-                {{--                            </span>--}}
+                {{--                                    <h3 class="card-title">{{ $event->title }}</h3>--}}
+                {{--                                    <span--}}
+                {{--                                        class="badge {{ $event->status == 'completed' ? 'badge-active' : 'badge-pending' }}">--}}
+                {{--                                                {{ $event->status == 'completed' ? 'Выполнено' : 'В процессе' }}--}}
+                {{--                                            </span>--}}
                 {{--                                </div>--}}
-                {{--                                <p class="card-meta">{{ Str::limit($practice->description, 80) }}</p>--}}
+                {{--                                <p class="card-meta">{{ Str::limit($event->description, 80) }}</p>--}}
                 {{--                                <div class="card-footer">--}}
-                {{--                                    <span class="meta-small" style="font-size:13px;color:var(--color-muted);font-weight:300;">Дедлайн: {{ $practice->deadline?->format('d.m.Y') ?? '—' }}</span>--}}
-                {{--                                    <a href="{{ route('practice.show', $practice->id) }}" class="btn-outline">Открыть</a>--}}
+                {{--                                    <span class="meta-small"--}}
+                {{--                                          style="font-size:13px;color:var(--color-muted);font-weight:300;">Дедлайн: {{ $event->deadline?->format('d.m.Y') ?? '—' }}</span>--}}
+                {{--                                    <a href="{{ route('practice.show', $event->id) }}"--}}
+                {{--                                       class="btn-outline">Открыть</a>--}}
                 {{--                                </div>--}}
                 {{--                            </div>--}}
                 {{--                        @endforeach--}}
                 {{--                    </div>--}}
                 {{--                @else--}}
                 {{--                    <div class="empty-state">--}}
-                {{--                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">--}}
+                {{--                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"--}}
+                {{--                             stroke-linejoin="round">--}}
                 {{--                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>--}}
                 {{--                            <polyline points="14 2 14 8 20 8"/>--}}
                 {{--                            <line x1="16" y1="13" x2="8" y2="13"/>--}}
@@ -398,6 +406,10 @@
             <div class="tab-panel" id="subscriptions" role="tabpanel">
                 @if($subscriptions->isNotEmpty())
                     <div class="content-grid">
+                        @php
+                            /** @var \App\Models\Subscription $sub */
+                        @endphp
+
                         @foreach($subscriptions as $sub)
                             <div class="card">
                                 <div class="card-header">

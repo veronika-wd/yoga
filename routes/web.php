@@ -13,7 +13,12 @@ use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 // Публичные
+
+// Главная
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Практики
+Route::get('/events', [EventController::class, 'index'])->name('events.index');
 
 // Не авторизованный пользователь
 Route::middleware('guest')->group(function () {
@@ -26,10 +31,25 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login');
 });
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+// Авторизованный пользователь
+Route::middleware('auth')->group(function () {
+    // Выход
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/events', [EventController::class, 'index'])->name('events.index');
+    // Профиль
+    Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+});
+
+// Админ
+Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+    // Практики
+    Route::get('/events', [\App\Http\Controllers\Admin\EventController::class, 'index'])->name('events.index');
+    Route::post('/events', [\App\Http\Controllers\Admin\EventController::class, 'store'])->name('events.store');
+    Route::get('/events/{event}/edit', [\App\Http\Controllers\Admin\EventController::class, 'edit'])->name('events.edit');
+    Route::patch('/events/{event}', [\App\Http\Controllers\Admin\EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{event}', [\App\Http\Controllers\Admin\EventController::class, 'destroy'])->name('events.destroy');
+});
+
 Route::get('/practices', [PracticeController::class, 'index'])->name('practices.index');
 Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers.index');
 Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
@@ -40,16 +60,11 @@ Route::get('/events/{event}', [EventController::class, 'show'])->name('events.sh
 Route::prefix('admin')->group(function () {
     Route::get('/subscriptions', [SubscriptionController::class, 'adminSubscription'])->name('admin.subscriptions');
     Route::view('/applications', 'admin.applications')->name('admin.applications');
-    Route::get('/events', [EventController::class, 'adminEvents'])->name('admin.events');
     Route::get('/teachers', [TeacherController::class, 'adminTeachers'])->name('admin.teachers');
     Route::get('/courses', [CoursesController::class, 'adminCourses'])->name('admin.courses');
     Route::get('/calls', [CallController::class, 'adminCalls'])->name('admin.calls');
 });
 
-Route::post('/events/store', [EventController::class, 'store'])->name('events.store');
-Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
-Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
-Route::patch('/events/{event}', [EventController::class, 'update'])->name('events.update');
 Route::post('/events/{event}/application', [EventController::class, 'application'])->name('events.application');
 
 Route::post('/teachers/store', [TeacherController::class, 'store'])->name('teachers.store');

@@ -4,7 +4,7 @@
 @endpush
 @section('content')
     <h2 class="section-title">Добавить событие</h2>
-    <form action="{{ route('events.update', $event) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.events.update', $event) }}" method="post" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
         <div class="form-group">

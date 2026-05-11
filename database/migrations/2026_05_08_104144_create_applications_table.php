@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained();
-            $table->morphs('applicationable');
+            $table->foreignIdFor(User::class, 'user_id')->constrained();
+            $table->morphs('applicable');
             $table->timestamps();
         });
     }

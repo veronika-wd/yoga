@@ -4,7 +4,7 @@
 @endpush
 @section('content')
     <h2 class="section-title">Добавить событие</h2>
-    <form action="{{ route('events.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.events.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <div class="input-field">
@@ -17,6 +17,7 @@
             </div>
             <div class="input-field">
                 <select name="teacher" id="teacher">
+                    <option value="" hidden>Выберите преподавателя</option>
                     @foreach($teachers as $teacher)
                         <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                     @endforeach
@@ -102,8 +103,8 @@
                 <td data-label="Дата и время">{{ date_format($event->datetime, 'd/m/y H:i') }}</td>
                 <td data-label="Цена">{{ $event->price }} ₽</td>
                 <td data-label="Действия" class="actions">
-                    <a href="{{ route('events.edit', $event) }}" class="delete-btn">Изменить</a>
-                    <form action="{{ route('events.destroy', $event) }}" method="post">
+                    <a href="{{ route('admin.events.edit', $event) }}" class="delete-btn">Изменить</a>
+                    <form action="{{ route('admin.events.destroy', $event) }}" method="post">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="delete-btn">Удалить</button>

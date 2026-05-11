@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
@@ -16,14 +13,11 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('video')->nullable();
-            $table->integer('price');
+            $table->decimal('price', 10);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('courses');

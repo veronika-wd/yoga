@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Teacher;
 
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Model;
@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 #[Guarded(['id'])]
 class Teacher extends Model
 {
+    protected $casts = [
+        'status' => TeacherStatusEnum::class,
+    ];
 }

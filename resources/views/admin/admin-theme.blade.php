@@ -54,7 +54,7 @@
                                     d="M3 13h1v7H3v-7zm0-8h1v5H3V5zm4 0h1v12H7V5zm4 0h1v12h-1V5zm4 0h1v12h-1V5zm4 0h1v7h-1V5zm0 10h1v2h-1v-2z"/>
                             </svg>
                             Абонементы</a></li>
-                    <li><a href="{{ route('admin.events') }}">
+                    <li><a href="{{ route('admin.events.index') }}">
                             <svg viewBox="0 0 24 24">
                                 <path
                                     d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
