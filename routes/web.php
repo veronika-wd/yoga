@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\Course\LessonController;
+use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CallController;
@@ -82,21 +84,24 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::view('/applications', 'admin.applications.index')->name('applications.index');
 
     // Преподаватели
-    Route::get('/teachers', [\App\Http\Controllers\Admin\TeacherController::class, 'index'])->name('teachers.index');
-    Route::post('/teachers', [\App\Http\Controllers\Admin\TeacherController::class, 'store'])->name('teachers.store');
-    Route::get('/teachers/{teacher}/edit', [\App\Http\Controllers\Admin\TeacherController::class, 'edit'])->name('teachers.edit');
-    Route::patch('/teachers/{teacher}', [\App\Http\Controllers\Admin\TeacherController::class, 'update'])->name('teachers.update');
-    Route::delete('/teachers/{teacher}', [\App\Http\Controllers\Admin\TeacherController::class, 'destroy'])->name('teachers.destroy');
+    Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers.index');
+    Route::post('/teachers', [TeacherController::class, 'store'])->name('teachers.store');
+    Route::get('/teachers/{teacher}/edit', [TeacherController::class, 'edit'])->name('teachers.edit');
+    Route::patch('/teachers/{teacher}', [TeacherController::class, 'update'])->name('teachers.update');
+    Route::delete('/teachers/{teacher}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
 
     // Курсы
     Route::get('/courses', [\App\Http\Controllers\Admin\CourseController::class, 'index'])->name('courses.index');
-
-    // Звонки
-    Route::get('/calls', [\App\Http\Controllers\Admin\CallController::class, 'index'])->name('calls.index');
-
-    // Курсы
     Route::post('/courses', [\App\Http\Controllers\Admin\CourseController::class, 'store'])->name('courses.store');
     Route::get('/courses/{course}/edit', [\App\Http\Controllers\Admin\CourseController::class, 'edit'])->name('courses.edit');
     Route::patch('/courses/{course}', [\App\Http\Controllers\Admin\CourseController::class, 'update'])->name('courses.update');
     Route::delete('/courses/{course}', [\App\Http\Controllers\Admin\CourseController::class, 'destroy'])->name('courses.destroy');
+    // Уроки
+    Route::prefix('courses/{course}')->scopeBindings()->group(function () {
+        Route::resource('lessons', LessonController::class)
+            ->except(['create', 'show']);
+    });
+
+    // Звонки
+    Route::get('/calls', [\App\Http\Controllers\Admin\CallController::class, 'index'])->name('calls.index');
 });

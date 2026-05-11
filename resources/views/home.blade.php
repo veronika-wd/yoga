@@ -130,7 +130,7 @@
 
     <section class="feedback mb-5">
         <h2 class="col-12 text-center">Оставить отзыв</h2>
-        <form action="{{ route('review.store') }}" method="post" class="row">
+        <form action="{{ route('reviews.store') }}" method="post" class="row">
             @csrf
             <div class="input-field col-12">
                 <input type="text" id="name" name="name" placeholder=" " class="w-100 rounded-5 px-4" required/>

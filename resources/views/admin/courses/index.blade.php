@@ -47,7 +47,8 @@
                     </video>
 
                     <button type="button" class="video-remove-btn" id="videoRemoveBtn" title="Удалить видео">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
                         </svg>
@@ -79,6 +80,7 @@
                 <td data-label="Описание">{{ Str::limit($course->description, 70) }}</td>
                 <td data-label="Цена">{{ $course->price }} ₽</td>
                 <td data-label="Действия" class="actions">
+                    <a href="{{ route('admin.lessons.index', $course) }}">Уроки</a>
                     <a href="{{ route('admin.courses.edit', $course) }}" class="delete-btn">Изменить</a>
                     <form action="{{ route('admin.courses.destroy', $course) }}" method="post">
                         @method('DELETE')
