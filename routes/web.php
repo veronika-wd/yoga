@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\Course\LessonController;
 use App\Http\Controllers\Admin\TeacherController;
-use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -51,8 +50,6 @@ Route::middleware('auth')->group(function () {
     // Выход
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
-
     // Практики
     Route::post('/events/{event}/application', [EventController::class, 'application'])->name('events.application');
 
@@ -65,7 +62,7 @@ Route::middleware('auth')->group(function () {
     // Отзывы
     Route::post('/reviews', [ReviewController::class, 'store'])->name('review.store');
 
-    // Абонимент
+    // Абонемент
     Route::post('/subscriptions/{subscription}', [SubscriptionController::class, 'appointment'])->name('subscriptions.appointment');
 
     // Профиль
