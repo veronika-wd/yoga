@@ -14,14 +14,5 @@ class HomeController extends Controller
         return view('home', ['reviews' => $reviews]);
     }
 
-    public function profile(): View
-    {
-        $user = auth()->user();
 
-        return view('auth.profile', [
-            'courses' => $user->courses,
-            'subscriptions' => $user->subscriptions,
-            'events' => $user->events,
-        ]);
-    }
 }

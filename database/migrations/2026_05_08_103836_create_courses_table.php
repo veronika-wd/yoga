@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('video')->nullable();
             $table->decimal('price', 10);
             $table->timestamps();
         });

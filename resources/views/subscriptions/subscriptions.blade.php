@@ -4,27 +4,26 @@
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
 @endpush
 @section('content')
-    <h2 class="mb-4">Онлайн-курсы</h2>
+    <h2 class="mb-4">Абонементы</h2>
 
     <div class="row g-3 px-3 mb-3">
-        @foreach($courses as $course)
+        @foreach($subscriptions as $sub)
             <div class="col-sm-12 col-lg-3">
                 <div class="course-card h-100">
-                    <h3 class="course-title">{{ $course->name }}</h3>
+                    <h3 class="course-title">{{ $sub->name }}</h3>
 
-                    @if($course->description)
+                    @if($sub->description)
                         <p class="course-description">
-                            {{ Str::limit($course->description, 100) }}
+                            {{ Str::limit($sub->description, 100) }}
                         </p>
+                        <span class="course-price text-center">{{ $sub->count }} занятий</span>
                     @endif
 
                     <div class="course-meta">
-                        <span class="course-price">{{ number_format($course->price, 0, '.', ' ') }} ₽</span>
+                        <span class="course-price">{{ number_format($sub->price, 0, '.', ' ') }} ₽</span>
                     </div>
 
-                    <a href="{{ route('courses.show', $course) }}" class="btn-enroll w-100 text-center">
-                        Подробнее
-                    </a>
+                    <a href="{{ route('subscriptions.show', $sub) }}" class="btn-enroll text-center w-100">Подробнее</a>
                 </div>
             </div>
 

@@ -770,6 +770,9 @@ footer .contacts .social div img:nth-child(2) {
     }
 
     .banner {
+        position: absolute;
+        left: -1000px !important;
+        width: 100vw !important;
         margin-bottom: 30px;
         height: 250px;
         gap: 20px;
@@ -931,13 +934,12 @@ footer .contacts .social div img:nth-child(2) {
     }
 }
 
-/* ===== ИСПРАВЛЕНИЯ ДЛЯ МОБИЛЬНЫХ ===== */
 
-/* 1. Исправляем баннер - текст не должен обрезаться */
 @media (max-width: 768px) {
     .banner {
-        left: 0 !important; /* Убираем смещение */
-        width: 100% !important;
+        position: absolute;
+        left: -23px !important;
+        width: 100vw !important;
         padding: 20px 15px;
         min-height: 400px;
     }
@@ -962,7 +964,6 @@ footer .contacts .social div img:nth-child(2) {
     }
 }
 
-/* 2. Секция с формой на фоне (Не знаете, с чего начать?) */
 .start {
     padding: 40px 20px !important;
 }
@@ -997,7 +998,7 @@ footer .contacts .social div img:nth-child(2) {
         width: 100% !important;
         box-sizing: border-box;
         padding: 15px 20px !important;
-        font-size: 16px !important; /* Чтобы iOS не зумил */
+        font-size: 16px !important;
     }
 
     .start .fields .btn {
@@ -1007,7 +1008,6 @@ footer .contacts .social div img:nth-child(2) {
     }
 }
 
-/* 3. Форма отзывов */
 .feedback form {
     width: 100% !important;
     max-width: 400px;
@@ -1034,31 +1034,11 @@ footer .contacts .social div img:nth-child(2) {
     }
 }
 
-/* 4. Улучшаем читаемость текста на тёмных фонах */
 .start .header h2,
 .start .header p {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* 5. Фикс для логотипа в шапке */
-@media (max-width: 768px) {
-    header .logo {
-        position: static !important;
-        transform: none !important;
-        margin: 0 auto;
-    }
-
-    header .logo img {
-        width: 60px !important;
-        height: 60px !important;
-    }
-
-    header nav {
-        justify-content: center;
-    }
-}
-
-/* 6. Звёздочки рейтинга - делаем кликабельными и видимыми */
 .reviews .stars {
     display: flex;
     gap: 5px;
@@ -1077,213 +1057,21 @@ footer .contacts .social div img:nth-child(2) {
     color: #D9D9D9;
 }
 
-/* 7. Общие улучшения для очень маленьких экранов */
-@media (max-width: 360px) {
-    h1 {
-        font-size: 28px !important;
-    }
 
-    h2 {
-        font-size: 22px !important;
-    }
-
-    p {
-        font-size: 14px !important;
-    }
-
-    .btn {
-        padding: 12px 30px !important;
-        font-size: 14px !important;
-    }
-}
-
-/* 8. Предотвращаем горизонтальный скролл */
-body {
-    max-width: 100vw;
-    overflow-x: hidden;
-}
-
-* {
-    max-width: 100%;
-}
-
-/* 9. Улучшаем поля ввода */
-input, textarea {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+.btn-enroll {
+    display: inline-block;
+    padding: 16px 48px;
+    background: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: none;
     border-radius: 50px;
 }
 
-/* 10. Фикс для iOS - убираем зум при фокусе на input */
-@media screen and (max-width: 768px) {
-    input, textarea, select {
-        font-size: 16px !important;
-    }
-}
-
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    background: rgba(23, 16, 9, 0.95);
-}
-
-.logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.logo img {
-    width: 70px;
-    height: 70px;
-}
-
-/* ===== ШАПКА ===== */
-.main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background: #2B2218;
-    z-index: 1000;
-}
-
-.header-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    padding: 0 40px;
-}
-
-/* Навигация */
-.nav-left,
-.nav-right {
-    display: flex;
-    gap: 80px;
-}
-
-.nav-left a,
-.nav-right a {
-    color: #ECE1C0;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 400;
-    transition: color 0.3s;
-}
-
-.nav-left a:hover,
-.nav-right a:hover {
-    color: #F0E7C7;
-}
-
-/* Логотип по центру */
-.logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.logo img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    display: block;
-}
-
-/* Бургер и закрыть */
-.burger,
-.close-btn {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-}
-
-.burger span {
-    display: block;
-    width: 25px;
-    height: 2px;
-    background: #ECE1C0;
-    margin: 5px 0;
-}
-
-.close-btn {
-    color: #ECE1C0;
-    font-size: 24px;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-}
-
-/* ===== МОБИЛЬНОЕ МЕНЮ ===== */
-.mobile-menu {
-    display: none;
-    position: fixed;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 80px);
-    background: #2B2218;
-    z-index: 999;
-    flex-direction: column;
-    padding: 40px;
-    gap: 20px;
-}
-
-.mobile-menu.active {
-    display: flex;
-}
-
-.mobile-menu a {
-    color: #ECE1C0;
-    text-decoration: none;
-    font-size: 20px;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-/* ===== АДАПТИВ ===== */
-@media (max-width: 768px) {
-    .header-container {
-        padding: 0 20px;
-    }
-
-    .nav-left,
-    .nav-right {
-        display: none;
-    }
-
-    .logo img {
-        width: 60px;
-        height: 60px;
-    }
-
-    .burger {
-        display: block;
-    }
-
-    .mobile-menu {
-        top: 70px;
-        height: calc(100vh - 70px);
-    }
-}
-
-/* Отступ для контента */
-body {
-    padding-top: 80px;
+.btn-enroll:hover {
+    background: var(--color-secondary);
 }
