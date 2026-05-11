@@ -3,6 +3,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/courses.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/schedule.css') }}">
     <style>
         :root {
             --color-primary: #8b7355;
@@ -14,18 +15,6 @@
             --color-success: #5a8f5a;
             --color-danger: #c0392b;
             --color-muted: #9a9590;
-        }
-
-        .dashboard-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        .dashboard-header {
-            margin-bottom: 40px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--color-border);
         }
 
         .dashboard-header h1 {
@@ -49,6 +38,7 @@
             margin-bottom: 40px;
             border-bottom: 1px solid var(--color-border);
             overflow-x: auto;
+            overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -106,166 +96,112 @@
             }
         }
 
-        /* Сетка карточек (курсы/практики/абонементы) */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
+        .event-card {
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .card {
-            background: var(--color-white);
-            border: 1px solid var(--color-border);
-            border-radius: 6px;
-            padding: 28px;
-            transition: all 0.3s ease;
+        .event-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
-        .card:hover {
-            border-color: var(--color-secondary);
-            box-shadow: 0 6px 20px rgba(74, 74, 72, 0.05);
-            transform: translateY(-2px);
+        .card-image-wrapper {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 16px;
-            gap: 12px;
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .card-title {
-            font-size: 18px;
-            font-weight: 400;
-            color: var(--color-text-dark);
-            margin: 0;
-            line-height: 1.3;
+        .date-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background-color: #2c241b;
+            color: #f5e6d3;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 70px;
         }
 
-        /* Бейджи */
-        .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            font-size: 11px;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            border-radius: 3px;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .badge-active {
-            background: rgba(90, 143, 90, 0.1);
-            color: var(--color-success);
-        }
-
-        .badge-pending {
-            background: rgba(139, 115, 85, 0.1);
-            color: var(--color-primary);
-        }
-
-        .badge-expired {
-            background: rgba(154, 149, 144, 0.15);
-            color: var(--color-muted);
-        }
-
-        .badge-rejected {
-            background: rgba(192, 57, 43, 0.1);
-            color: var(--color-danger);
-        }
-
-        .card-meta {
+        .month {
+            display: block;
             font-size: 14px;
-            color: var(--color-muted);
-            margin-bottom: 24px;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 18px;
-            border-top: 1px solid var(--color-border);
-        }
-
-        .btn-outline {
-            display: inline-block;
-            padding: 10px 24px;
-            background: transparent;
-            border: 1px solid var(--color-primary);
-            color: var(--color-primary);
-            font-size: 12px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .btn-outline:hover {
-            background: var(--color-primary);
-            color: white;
-        }
-
-        .btn-outline:disabled {
-            border-color: var(--color-border);
-            color: var(--color-muted);
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        /* Список заявок (полиморфный) */
-        .request-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .request-item {
-            background: var(--color-white);
-            border: 1px solid var(--color-border);
-            border-radius: 6px;
-            padding: 20px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            transition: all 0.2s ease;
-        }
-
-        .request-item:hover {
-            border-color: var(--color-secondary);
-        }
-
-        .request-type {
-            font-size: 11px;
-            text-transform: uppercase;
+            font-weight: 600;
             letter-spacing: 1px;
-            color: var(--color-muted);
             margin-bottom: 4px;
         }
 
-        .request-title {
-            font-size: 15px;
-            font-weight: 400;
-            color: var(--color-text-dark);
-            margin: 0;
+        .day {
+            display: block;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
         }
 
-        .request-meta {
-            font-size: 13px;
-            color: var(--color-muted);
-            margin-top: 4px;
-            font-weight: 300;
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .request-status {
-            text-align: right;
-            min-width: 120px;
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2c241b;
+            margin: 0 0 12px 0;
+        }
+
+        .card-instructor,
+        .card-price {
+            font-size: 16px;
+            color: #5a4a3a;
+            margin: 0 0 8px 0;
+            font-weight: 500;
+        }
+
+        .card-duration {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            font-size: 16px;
+            color: #2c241b;
+            font-weight: 600;
+        }
+
+        .clock-icon {
+            width: 20px;
+            height: 20px;
+            color: #2c241b;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 480px) {
+            .event-card {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .card-image-wrapper {
+                height: 240px;
+            }
+
+            .card-title {
+                font-size: 20px;
+            }
         }
 
         .empty-state {
@@ -317,7 +253,6 @@
         <button class="nav-tab active" data-tab="courses" role="tab" aria-selected="true">Курсы</button>
         <button class="nav-tab" data-tab="practices" role="tab" aria-selected="false">Практики</button>
         <button class="nav-tab" data-tab="subscriptions" role="tab" aria-selected="false">Абонементы</button>
-        <button class="nav-tab" data-tab="requests" role="tab" aria-selected="false">Заявки</button>
     </nav>
 
     <div class="dashboard-content">
@@ -336,7 +271,8 @@
                                     </p>
                                 @endif
 
-                                <a href="{{ route('profile.courses.show', $course) }}" class="btn-enroll w-100 text-center">
+                                <a href="{{ route('profile.courses.show', $course) }}"
+                                   class="btn-enroll w-100 text-center">
                                     Открыть
                                 </a>
                             </div>
@@ -358,39 +294,50 @@
 
         <!-- ПРАКТИКИ -->
         <div class="tab-panel" id="practices" role="tabpanel">
-            {{--                @if($events->isNotEmpty())--}}
-            {{--                    <div class="content-grid">--}}
-            {{--                        @foreach($events as $event)--}}
-            {{--                            <div class="card">--}}
-            {{--                                <div class="card-header">--}}
-            {{--                                    <h3 class="card-title">{{ $event->title }}</h3>--}}
-            {{--                                    <span--}}
-            {{--                                        class="badge {{ $event->status == 'completed' ? 'badge-active' : 'badge-pending' }}">--}}
-            {{--                                                {{ $event->status == 'completed' ? 'Выполнено' : 'В процессе' }}--}}
-            {{--                                            </span>--}}
-            {{--                                </div>--}}
-            {{--                                <p class="card-meta">{{ Str::limit($event->description, 80) }}</p>--}}
-            {{--                                <div class="card-footer">--}}
-            {{--                                    <span class="meta-small"--}}
-            {{--                                          style="font-size:13px;color:var(--color-muted);font-weight:300;">Дедлайн: {{ $event->deadline?->format('d.m.Y') ?? '—' }}</span>--}}
-            {{--                                    <a href="{{ route('practice.show', $event->id) }}"--}}
-            {{--                                       class="btn-outline">Открыть</a>--}}
-            {{--                                </div>--}}
-            {{--                            </div>--}}
-            {{--                        @endforeach--}}
-            {{--                    </div>--}}
-            {{--                @else--}}
-            {{--                    <div class="empty-state">--}}
-            {{--                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"--}}
-            {{--                             stroke-linejoin="round">--}}
-            {{--                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>--}}
-            {{--                            <polyline points="14 2 14 8 20 8"/>--}}
-            {{--                            <line x1="16" y1="13" x2="8" y2="13"/>--}}
-            {{--                            <line x1="16" y1="17" x2="8" y2="17"/>--}}
-            {{--                        </svg>--}}
-            {{--                        <p>Нет доступных практик</p>--}}
-            {{--                    </div>--}}
-            {{--                @endif--}}
+            @if($events->isNotEmpty())
+                <div class="row g-3 mb-3 p-2">
+                    @foreach($events as $event)
+                        <div class="col-sm-12 col-lg-3">
+                            <div class="event-card h-100">
+                                <div class="card-image-wrapper">
+                                    <img src="{{ Storage::url($event->image) }}" alt="Звукопозитивная терапия"
+                                         class="card-image">
+                                    <div class="date-badge">
+                                        <span
+                                            class="month">{{ Str::upper($event->datetime->translatedFormat('M'))  }}</span>
+                                        <span class="day">{{ date_format($event->datetime, 'd') }}</span>
+                                    </div>
+                                </div>
+                                <div class="card-content h-50">
+                                    <h3 class="card-title">{{ Str::limit($event->name, 20) }}</h3>
+                                    <p class="card-instructor">{{ $event->teacher->name }}</p>
+                                    <p class="card-price">{{ $event->price }}</p>
+                                    <div class="card-duration">
+                                        <svg class="clock-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                                        </svg>
+                                        <span>{{ $event->time }} минут</span>
+                                    </div>
+                                    <a href="{{ route('events.show', $event) }}"
+                                       class="btn-enroll text-center w-100 mt-1 mb-2">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                    <p>Нет доступных практик</p>
+                </div>
+            @endif
         </div>
 
         <!-- АБОНЕМЕНТЫ -->
@@ -428,82 +375,6 @@
                 </div>
             @endif
         </div>
-
-        <!-- Секция ЗАЯВКИ (Вставьте это вместо предыдущего блока id="requests") -->
-        <div class="tab-panel" id="requests" role="tabpanel">
-            {{--                @if($applications->isNotEmpty())--}}
-            {{--                    <div class="request-list">--}}
-            {{--                        @foreach($applications as $app)--}}
-            {{--                            @php--}}
-            {{--                                $entity = $app->applicationable;--}}
-            {{--                                $typeClass = class_basename($app->applicationable_type); // Course, Events, Subscription--}}
-
-            {{--                                // Приводим к нижнему регистру для роута (events -> event, Course -> course)--}}
-            {{--                                // Если ваши роуты во множественном числе (events.show), уберите Str::singular--}}
-            {{--                                $routeType = Str::singular($typeClass);--}}
-            {{--                                $routeName = $routeType . '.show';--}}
-
-            {{--                                // Получаем название сущности безопасно--}}
-            {{--                                $entityName = data_get($entity, 'name') ?? data_get($entity, 'title') ?? 'Без названия';--}}
-            {{--                            @endphp--}}
-
-            {{--                            <div class="request-item">--}}
-            {{--                                <div style="flex:1;">--}}
-            {{--                                    <!-- Тип заявки -->--}}
-            {{--                                    <div class="request-type">--}}
-            {{--                                        @switch($typeClass)--}}
-            {{--                                            @case('Course') Курс @break--}}
-            {{--                                            @case('Events') Событие @break--}}
-            {{--                                            @case('Subscription') Абонемент @break--}}
-            {{--                                            @default Заявка--}}
-            {{--                                        @endswitch--}}
-            {{--                                    </div>--}}
-
-            {{--                                    <!-- Название -->--}}
-            {{--                                    <h4 class="request-title">{{ $entityName }}</h4>--}}
-
-            {{--                                    <!-- Мета-информация -->--}}
-            {{--                                    <div class="request-meta">--}}
-            {{--                                        Подано: {{ $app->created_at->format('d.m.Y') }}--}}
-            {{--                                        @if($app->comment) · {{ Str::limit($app->comment, 50) }} @endif--}}
-            {{--                                    </div>--}}
-            {{--                                </div>--}}
-
-            {{--                                <!-- Статус и кнопка -->--}}
-            {{--                                <div class="request-status">--}}
-            {{--                        <span class="badge--}}
-            {{--                            @if($app->status === 'approved') badge-active--}}
-            {{--                            @elseif($app->status === 'rejected') badge-rejected--}}
-            {{--                            @else badge-pending @endif">--}}
-
-            {{--                            {{ $app->status_label ?? $app->status }}--}}
-            {{--                        </span>--}}
-
-            {{--                                    @if($app->status === 'approved' && $entity)--}}
-            {{--                                        <!-- Кнопка перехода к сущности -->--}}
-            {{--                                        <a href="{{ route($routeName, $entity->id) }}"--}}
-            {{--                                           class="btn-outline"--}}
-            {{--                                           style="margin-top:8px; padding:8px 16px; font-size:11px;">--}}
-            {{--                                            Перейти--}}
-            {{--                                        </a>--}}
-            {{--                                    @endif--}}
-            {{--                                </div>--}}
-            {{--                            </div>--}}
-            {{--                        @endforeach--}}
-            {{--                    </div>--}}
-            {{--                @else--}}
-            {{--                    <div class="empty-state">--}}
-            {{--                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">--}}
-            {{--                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>--}}
-            {{--                            <line x1="16" y1="13" x2="8" y2="13"/>--}}
-            {{--                            <line x1="16" y1="17" x2="8" y2="17"/>--}}
-            {{--                            <polyline points="14 2 14 8 20 8"/>--}}
-            {{--                        </svg>--}}
-            {{--                        <p>У вас нет активных заявок</p>--}}
-            {{--                    </div>--}}
-            {{--                @endif--}}
-        </div>
-    </div>
     </div>
 @endsection
 

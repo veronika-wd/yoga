@@ -98,77 +98,268 @@
             <button id="closeModal">Закрыть</button>
         </div>
     </div>
-    <section class="reviews">
-        <h2>Что о нас говорят клиенты?</h2>
-        @if($reviews->count() > 0)
-            <div class="reviews__list">
-                @foreach($reviews as $review)
-                    <div class="reviews__item">
-                        <div class="reviews__header">
-                            <h3 class="reviews__author">{{ $review->name }}</h3>
-                            <div class="reviews__rating-value">
-                                @for($i = 0; $i < $review->rating; $i++)
-                                    <span class="star">★</span>
-                                @endfor
-                                @for($i = $review->rating; $i < 5; $i++)
-                                    <span class="star" style="color: #ddd;">★</span>
-                                @endfor
-                                <span>({{ $review->rating }}/5)</span>
+
+    <h2 class="text-center mt-3">Что о нас говорят клиенты?</h2>
+
+    <div class="row align-items-center">
+        <div class="col-sm-12 col-lg-6">
+            <section class="reviews">
+                @if($reviews->count() > 0)
+                    <div class="reviews__list w-100">
+                        @foreach($reviews as $review)
+                            <div class="reviews__item mb-2">
+                                <div class="reviews__header">
+                                    <h3 class="reviews__author">{{ $review->name }}</h3>
+                                    <div class="reviews__rating-value">
+                                        @for($i = 0; $i < $review->rating; $i++)
+                                            <span class="star">★</span>
+                                        @endfor
+                                        @for($i = $review->rating; $i < 5; $i++)
+                                            <span class="star" style="color: #ddd;">★</span>
+                                        @endfor
+                                        <span>({{ $review->rating }}/5)</span>
+                                    </div>
+                                </div>
+                                <p class="reviews__text">{{ $review->review }}</p>
+                                <p class="reviews__text mt-2">{{ date_format($review->created_at, 'd/m/y') }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="reviews__empty d-flex align-items-center">
+                        Пока нет отзывов. Будьте первым!
+                    </div>
+                @endif
+            </section>
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <section class="review-section">
+                <div class="review-container">
+                    <h2 class="review-title">Оставить отзыв</h2>
+
+                    <form action="{{ route('reviews.store') }}" method="post" class="review-form">
+                        @csrf
+
+                        <!-- Поле Имя -->
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" class="form-input" placeholder=" " required>
+                            <label for="name" class="form-label">Ваше имя</label>
+                        </div>
+
+                        <!-- Рейтинг (Звезды) -->
+                        <div class="form-group rating-group">
+                            <span class="rating-label">Оценка:</span>
+                            <div class="stars-wrapper">
+                                <!-- Порядок важен: от 5 до 1 для работы CSS селектора ~ -->
+                                <input type="radio" name="rating" id="star5" value="5" required>
+                                <label for="star5" title="Отлично">★</label>
+
+                                <input type="radio" name="rating" id="star4" value="4">
+                                <label for="star4" title="Хорошо">★</label>
+
+                                <input type="radio" name="rating" id="star3" value="3">
+                                <label for="star3" title="Нормально">★</label>
+
+                                <input type="radio" name="rating" id="star2" value="2">
+                                <label for="star2" title="Плохо">★</label>
+
+                                <input type="radio" name="rating" id="star1" value="1">
+                                <label for="star1" title="Ужасно">★</label>
                             </div>
                         </div>
-                        <p class="reviews__text">{{ $review->review }}</p>
-                        <p class="reviews__text mt-2">{{ date_format($review->created_at, 'd/m/y') }}</p>
-                    </div>
-                @endforeach
-            </div>
-        @else
-            <div class="reviews__empty">
-                Пока нет отзывов. Будьте первым!
-            </div>
-        @endif
-    </section>
 
-    <section class="feedback mb-5">
-        <h2 class="col-12 text-center">Оставить отзыв</h2>
-        <form action="{{ route('reviews.store') }}" method="post" class="row">
-            @csrf
-            <div class="input-field col-12">
-                <input type="text" id="name" name="name" placeholder=" " class="w-100 rounded-5 px-4" required/>
-                <label for="name">Ваше имя</label>
-            </div>
-            <div class="reviews__rating">
-                <span class="reviews__rating-label">Ваша оценка:</span>
-                <div class="reviews__rating-stars">
-                    <div class="reviews__rating-star">
-                        <input type="radio" name="rating" id="star5" value="5" required>
-                        <label for="star5">★</label>
-                    </div>
-                    <div class="reviews__rating-star">
-                        <input type="radio" name="rating" id="star4" value="4">
-                        <label for="star4">★</label>
-                    </div>
-                    <div class="reviews__rating-star">
-                        <input type="radio" name="rating" id="star3" value="3">
-                        <label for="star3">★</label>
-                    </div>
-                    <div class="reviews__rating-star">
-                        <input type="radio" name="rating" id="star2" value="2">
-                        <label for="star2">★</label>
-                    </div>
-                    <div class="reviews__rating-star">
-                        <input type="radio" name="rating" id="star1" value="1">
-                        <label for="star1">★</label>
-                    </div>
+                        <!-- Поле Текст -->
+                        <div class="form-group">
+                            <textarea id="review-text" name="review" class="form-input form-textarea" rows="4" placeholder=" " required></textarea>
+                            <label for="review-text" class="form-label">Расскажите о впечатлениях</label>
+                        </div>
+
+                        <!-- Кнопка -->
+                        <button type="submit" class="btn w-100 fw-medium py-2">
+                            Отправить отзыв
+                        </button>
+                    </form>
                 </div>
-            </div>
-            <div class="input-field col-12">
-                <textarea id="description" name="review" rows="3" placeholder=" "></textarea>
-                <label for="description">Описание</label>
-            </div>
-            <button type="submit" class="btn">Отправить</button>
-        </form>
-    </section>
+            </section>
+        </div>
+    </div>
 
+
+
+    <style>
+        /* --- Переменные (как в карточке) --- */
+        :root {
+            --bg-color: #f9f6f2;       /* Светлый фон секции */
+            --card-bg: #ffffff;        /* Белый фон формы */
+            --text-main: #2c241b;      /* Темно-коричневый текст */
+            --text-muted: #8a7d6b;     /* Серо-коричневый для лейблов */
+            --accent-gold: #d4af7a;    /* Золотой акцент (как дата на карточке) */
+            --border-color: #e6ded3;   /* Мягкая граница */
+            --radius-lg: 16px;         /* Скругление как у карточки */
+            --radius-sm: 10px;         /* Скругление инпутов */
+            --shadow-soft: 0 10px 30px rgba(44, 36, 27, 0.08);
+        }
+
+        /* --- Секция и Контейнер --- */
+        .review-section {
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .review-container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 500px; /* Оптимальная ширина для чтения */
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .review-title {
+            text-align: center;
+            color: var(--text-main);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- Группы полей --- */
+        .form-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        /* --- Инпуты и Текстария --- */
+        .form-input {
+            width: 100%;
+            padding: 16px 16px;
+            font-size: 16px;
+            color: var(--text-main);
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box; /* Важно для padding */
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        /* Эффект фокуса */
+        .form-input:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 4px rgba(212, 175, 122, 0.15);
+        }
+
+        /* --- Плавающий Label (Floating Label) --- */
+        .form-label {
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            font-size: 16px;
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: all 0.25s ease;
+            background-color: var(--card-bg);
+            padding: 0 4px;
+        }
+
+        /* Магия CSS: поднимаем лейбл, если инпут в фокусе или не пустой */
+        .form-input:focus ~ .form-label,
+        .form-input:not(:placeholder-shown) ~ .form-label {
+            top: -10px;
+            left: 12px;
+            font-size: 13px;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        /* --- Звездный рейтинг --- */
+        .rating-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .rating-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .stars-wrapper {
+            display: flex;
+            flex-direction: row-reverse; /* Реверс для правильного hover эффекта в CSS */
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .stars-wrapper input {
+            display: none; /* Прячем радио-кнопки */
+        }
+
+        .stars-wrapper label {
+            font-size: 32px;
+            color: #ddd; /* Серый цвет неактивных звезд */
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.2s ease;
+            line-height: 1;
+        }
+
+        /* Логика подсветки звезд */
+        /* Если звезда выбрана (checked) -> красим её и все предыдущие (которые визуально справа из-за row-reverse) */
+        .stars-wrapper input:checked ~ label,
+            /* Если наводим на звезду -> красим её и все предыдущие */
+        .stars-wrapper label:hover,
+        .stars-wrapper label:hover ~ label {
+            color: var(--accent-gold);
+            transform: scale(1.1);
+        }
+
+        /*!* --- Кнопка --- *!*/
+        /*.submit-btn {*/
+        /*    width: 100%;*/
+        /*    padding: 18px;*/
+        /*    background-color: var(--text-main); !* Темно-коричневая кнопка *!*/
+        /*    color: #fff;*/
+        /*    border: none;*/
+        /*    border-radius: var(--radius-sm);*/
+        /*    font-size: 16px;*/
+        /*    font-weight: 600;*/
+        /*    cursor: pointer;*/
+        /*    transition: all 0.3s ease;*/
+        /*    letter-spacing: 0.5px;*/
+        /*    margin-top: 10px;*/
+        /*}*/
+
+        /*.submit-btn:hover {*/
+        /*    background-color: var(--accent-gold); !* Золотая при наведении *!*/
+        /*    transform: translateY(-2px);*/
+        /*    box-shadow: 0 5px 15px rgba(212, 175, 122, 0.4);*/
+        /*}*/
+
+        /*.submit-btn:active {*/
+        /*    transform: translateY(0);*/
+        /*}*/
+
+        /* Адаптив для мобильных */
+        @media (max-width: 480px) {
+            .review-container {
+                padding: 25px;
+            }
+
+            .stars-wrapper label {
+                font-size: 28px;
+            }
+        }
+    </style>
     <section class="location">
         <h2>Как нас найти?</h2>
         <p>г.Абакан ул.Крылова,112</p>

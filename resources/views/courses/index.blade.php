@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
 @endpush
 @section('content')
-    <h2 class="mb-4">Онлайн-курсы</h2>
+    <h2 class="mb-4 mt-4">Онлайн-курсы</h2>
 
     <div class="row g-3 px-3 mb-3">
         @foreach($courses as $course)

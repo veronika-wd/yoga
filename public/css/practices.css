@@ -1,24 +1,173 @@
+:root {
+    --color-bg: #f9f6f2;
+    --color-card: #ffffff;
+    --color-text-primary: #2c241b;
+    --color-text-secondary: #5a4a3a;
+    --color-accent: #d4af7a;
+    --radius: 16px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+.yoga-about {
+    padding: 60px 20px;
+}
+
+.container {
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 28px;
+    color: var(--color-text-primary);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.section-intro {
+    text-align: center;
+    font-size: 17px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.info-block {
+    background: var(--color-card);
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+    transition: var(--transition);
+}
+
+.info-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.info-block h3 {
+    font-size: 20px;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.info-block p,
+.info-block ul {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.directions-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.directions-list li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.directions-list li::before {
+    content: "•";
+    color: var(--color-accent);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.cta-box {
+    background: var(--color-text-primary);
+    color: white;
+    padding: 30px;
+    border-radius: var(--radius);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cta-box h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.cta-box p {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.btn-gold {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: var(--color-accent);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-gold:hover {
+    background-color: #e6c9a8;
+    transform: scale(1.03);
+}
+
+
+.contacts-simple {
+    text-align: center;
+    font-size: 16px;
+    color: var(--color-text-secondary);
+}
+
+.contacts-simple a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.contacts-simple a:hover {
+    color: var(--color-accent);
+}
+
+/* Адаптив */
+@media (max-width: 600px) {
+    .yoga-about {
+        padding: 40px 15px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .info-block {
+        padding: 20px;
+    }
+
+    .cta-box {
+        padding: 25px 20px;
+    }
+}
 .main {
     display: flex;
     flex-direction: column;
-
 }
 
 .description {
-    width: 63%;
-    background-color: #171009;
+    background-color: #473727;
     color: #ECE1C0;
     padding: 40px;
     border-radius: 30px;
     margin-bottom: 100px;
-}
-
-.container {
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 @media (max-width: 420px) {

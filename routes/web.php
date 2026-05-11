@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/calls', [CallController::class, 'store'])->name('calls.store');
 
     // Отзывы
-    Route::post('/reviews', [ReviewController::class, 'store'])->name('review.store');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
     // Абонемент
     Route::post('/subscriptions/{subscription}', [SubscriptionController::class, 'appointment'])->name('subscriptions.appointment');

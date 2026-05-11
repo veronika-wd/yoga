@@ -180,6 +180,9 @@
                     <form action="{{ route('events.application', $event) }}" method="post">
                         @csrf
                         <button type="submit" class="btn-enroll">Записаться</button>
+                        @error('alreadyApplied')
+                        <p class="text-danger mt-2">{{ $message }}</p>
+                        @enderror
                     </form>
                 </div>
             </div>

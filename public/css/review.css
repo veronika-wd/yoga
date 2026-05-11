@@ -2,7 +2,6 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 40px 20px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .reviews__container {
     background-color: #f8f9fa !important;
@@ -26,12 +25,14 @@
 }
 .reviews__rating {
     margin-bottom: 20px;
+    background-color: #fff;
+    border-radius:12px;
+    width: 95%;
 }
 .reviews__rating-label {
     display: block;
     font-size: 18px;
-    color: #333333;
-    margin-bottom: 10px;
+    color: #575151;
     font-weight: 500;
 }
 .reviews__rating-stars {
@@ -109,11 +110,11 @@
 .reviews__button:active {
     transform: translateY(0);
 }
-.reviews__list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
+/*.reviews__list {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(3, 1fr);*/
+/*    gap: 20px;*/
+/*}*/
 .reviews__item {
     background: #f8f3e6;
     border-radius: 12px;
@@ -192,3 +193,6 @@
         padding: 12px 30px;
     }
 }
+
+
+

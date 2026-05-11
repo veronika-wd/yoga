@@ -113,7 +113,7 @@
             }
         }
     </style>
-    <h1>Предстоящие события</h1>
+    <h2 class="mt-4">Предстоящие события</h2>
 
 
     <div class="row g-3 mb-3 p-2">
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                     <div class="card-content h-50">
-                        <h3 class="card-title">{{ $event->name }}</h3>
+                        <h3 class="card-title">{{ Str::limit($event->name, 20) }}</h3>
                         <p class="card-instructor">{{ $event->teacher->name }}</p>
                         <p class="card-price">{{ $event->price }}</p>
                         <div class="card-duration">
@@ -137,7 +137,7 @@
                             </svg>
                             <span>{{ $event->time }} минут</span>
                         </div>
-                        <a href="{{ route('events.show', $event) }}" class="btn w-100">Подробнее</a>
+                        <a href="{{ route('events.show', $event) }}" class="btn-enroll text-center w-100 mt-1 mb-2">Подробнее</a>
                     </div>
                 </div>
             </div>

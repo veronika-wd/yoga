@@ -42,8 +42,8 @@
         @foreach($lessons as $lesson)
             <tr>
                 <td data-label="Название">{{ $lesson->name }}</td>
-                <td data-label="Текст">{{ Str::limit($lesson->content, 70) }}</td>
-                <td data-label="Ссылка">{{ $lesson->url }}</td>
+                <td data-label="Текст">{{ Str::limit($lesson->content, 50) }}</td>
+                <td data-label="Ссылка">{{ Str::limit($lesson->url, 50) }}</td>
                 <td data-label="Действия" class="actions">
                     <a href="{{ route('admin.lessons.edit', [$course, $lesson]) }}" class="delete-btn">Изменить</a>
                     <form action="{{ route('admin.lessons.destroy', [$course, $lesson]) }}" method="post">

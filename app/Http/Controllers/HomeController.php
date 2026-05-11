@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index(): View
     {
-        $reviews = Review::all();
+        $reviews = Review::latest()->limit(3)->get();
 
         return view('home', ['reviews' => $reviews]);
     }

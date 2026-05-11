@@ -44,6 +44,12 @@
             min-width: 160px;
         }
 
+        .detail-item a{
+            color: var(--color-text-dark);
+
+            word-break: break-all;
+        }
+
         .btn-secondary {
             display: inline-block;
             padding: 16px 48px;
@@ -107,142 +113,30 @@
 @endpush
 
 @section('content')
-    <div class="row">
-        <div class="col-sm-12 col-lg-10">
+    <div class="row mt-5">
+        <div class="col-12">
             <div class="navbar-scroll-container">
-                <a href="#1" class="btn-secondary nav-btn">Занятие 1</a>
-                <a href="#2" class="btn-secondary nav-btn">Занятие 2</a>
-                <a href="#3" class="btn-secondary nav-btn">Занятие 3</a>
-                <a href="#4" class="btn-secondary nav-btn">Занятие 4</a>
-                <a href="#5" class="btn-secondary nav-btn">Занятие 5</a>
-                <a href="#6" class="btn-secondary nav-btn">Занятие 6</a>
-                <a href="#7" class="btn-secondary nav-btn">Занятие 7</a>
-                <a href="#8" class="btn-secondary nav-btn">Занятие 8</a>
+                @foreach($lessons as $index => $lesson)
+                    <a href="#{{ $index + 1 }}" class="btn-secondary nav-btn">{{ $lesson->name }}</a>
+                @endforeach
             </div>
-        </div>
-        <div class="col-sm-12 col-lg-2">
-            <a href="#" class="btn-enroll">Все видео</a>
         </div>
     </div>
 
-    <div class="course-show" id="1">
+    @foreach($lessons as $index => $lesson)
+    <div class="course-show" id="{{ $index + 1 }}">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Занятие 1</h2>
+            <h2>{{ $lesson->name }}</h2>
 
         </div>
-        <p class="course-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur, cum
-            eligendi enim facilis nam perferendis quis tempore unde voluptates. Ab amet aperiam, at itaque natus nisi
-            quis sapiente ut!</p>
+        <p class="course-description">{{ $lesson->content }}</p>
         <div class="course-details">
             <div class="detail-item">
-                <b>Ссылки на уроки:</b>
-                <span>http://ya.ru</span>
+                <b>Ссылка на уроки:</b>
+                <a target="_blank" href="{{ $lesson->url }}">{{ $lesson->url }}</a>
             </div>
         </div>
     </div>
-    <div class="course-show" id="2">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Занятие 2</h2>
+    @endforeach
 
-        </div>
-        <p class="course-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur, cum
-            eligendi enim facilis nam perferendis quis tempore unde voluptates. Ab amet aperiam, at itaque natus nisi
-            quis sapiente ut!</p>
-        <div class="course-details">
-            <div class="detail-item">
-                <b>Ссылки на уроки:</b>
-                <span>http://ya.ru</span>
-            </div>
-        </div>
-    </div>
-    <div class="course-show" id="3">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Занятие 3</h2>
-
-        </div>
-        <p class="course-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur, cum
-            eligendi enim facilis nam perferendis quis tempore unde voluptates. Ab amet aperiam, at itaque natus nisi
-            quis sapiente ut!</p>
-        <div class="course-details">
-            <div class="detail-item">
-                <b>Ссылки на уроки:</b>
-                <span>http://ya.ru</span>
-            </div>
-        </div>
-    </div>
-    <div class="course-show" id="4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Занятие 4</h2>
-
-        </div>
-        <p class="course-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur, cum
-            eligendi enim facilis nam perferendis quis tempore unde voluptates. Ab amet aperiam, at itaque natus nisi
-            quis sapiente ut!</p>
-        <div class="course-details">
-            <div class="detail-item">
-                <b>Ссылки на уроки:</b>
-                <span>http://ya.ru</span>
-            </div>
-        </div>
-    </div>
-    <div class="course-show" id="5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Занятие 5</h2>
-
-        </div>
-        <p class="course-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur, cum
-            eligendi enim facilis nam perferendis quis tempore unde voluptates. Ab amet aperiam, at itaque natus nisi
-            quis sapiente ut!</p>
-        <div class="course-details">
-            <div class="detail-item">
-                <b>Ссылки на уроки:</b>
-                <span>http://ya.ru</span>
-            </div>
-        </div>
-    </div>
-    <div class="course-show" id="6">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Занятие 6</h2>
-
-        </div>
-        <p class="course-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur, cum
-            eligendi enim facilis nam perferendis quis tempore unde voluptates. Ab amet aperiam, at itaque natus nisi
-            quis sapiente ut!</p>
-        <div class="course-details">
-            <div class="detail-item">
-                <b>Ссылки на уроки:</b>
-                <span>http://ya.ru</span>
-            </div>
-        </div>
-    </div>
-    <div class="course-show" id="7">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Занятие 7</h2>
-
-        </div>
-        <p class="course-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur, cum
-            eligendi enim facilis nam perferendis quis tempore unde voluptates. Ab amet aperiam, at itaque natus nisi
-            quis sapiente ut!</p>
-        <div class="course-details">
-            <div class="detail-item">
-                <b>Ссылки на уроки:</b>
-                <span>http://ya.ru</span>
-            </div>
-        </div>
-    </div>
-    <div class="course-show" id="8">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Занятие 8</h2>
-
-        </div>
-        <p class="course-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur, cum
-            eligendi enim facilis nam perferendis quis tempore unde voluptates. Ab amet aperiam, at itaque natus nisi
-            quis sapiente ut!</p>
-        <div class="course-details">
-            <div class="detail-item">
-                <b>Ссылки на уроки:</b>
-                <span>http://ya.ru</span>
-            </div>
-        </div>
-    </div>
 @endsection

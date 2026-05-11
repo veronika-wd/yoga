@@ -23,6 +23,10 @@ class EventController extends Controller
 
     public function application(Event $event): RedirectResponse
     {
+        if ($event->applications->where('user_id', Auth::id())->first() !== null) {
+            return redirect()->back()->withErrors(['alreadyApplied' => 'Вы уже записаны на данную практику']);
+        }
+
         $event->applications()->create(['user_id' => Auth::id()]);
 
         return back();

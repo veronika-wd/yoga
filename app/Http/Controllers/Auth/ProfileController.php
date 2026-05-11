@@ -22,8 +22,9 @@ class ProfileController extends Controller
 
     public function course(Course $course): View
     {
+        $lessons = $course->lessons;
         return view('courses.lessons', [
-            'course' => $course,
+            'lessons' => $lessons,
         ]);
     }
 }
