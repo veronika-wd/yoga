@@ -24,7 +24,7 @@
                 <label for="description">Описание</label>
             </div>
         </div>
-        <div style="text-align:center;">
+        <div class="text-center">
             <button type="submit" class="submit-btn">Добавить абонемент</button>
         </div>
     </form>

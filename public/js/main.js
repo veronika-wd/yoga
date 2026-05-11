@@ -1,16 +1,14 @@
-const burgerBtn = document.getElementById('burgerBtn');
-const closeBtn = document.getElementById('closeBtn');
-const mobileMenu = document.getElementById('mobileMenu');
+document.addEventListener('DOMContentLoaded', function () {
+    const burger = document.getElementById('burger-toggle');
+    const nav = document.getElementById('main-nav');
 
-function toggleMenu() {
-    mobileMenu.classList.toggle('active');
-    burgerBtn.style.display = mobileMenu.classList.contains('active') ? 'none' : 'block';
-}
+    if (burger && nav) {
+        burger.addEventListener('click', function () {
+            // ПЕРЕКЛЮЧАЕМ КЛАСС active ДЛЯ МЕНЮ
+            nav.classList.toggle('active');
 
-burgerBtn?.addEventListener('click', toggleMenu);
-closeBtn?.addEventListener('click', toggleMenu);
-
-// Закрытие при клике на ссылку
-document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', toggleMenu);
+            // ПЕРЕКЛЮЧАЕМ КЛАСС open ДЛЯ АНИМАЦИИ БУРГЕРА
+            burger.classList.toggle('open');
+        });
+    }
 });

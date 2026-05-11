@@ -15,32 +15,35 @@
 
 <body>
 
-<header>
-    <div class="header-wrapper">
-        <nav>
-            <div>
-                <a href="{{ route('practices') }}">Практики</a>
-                <a href="{{ route('events.index') }}">Расписание</a>
-                <a href="{{ route('courses.index') }}">Онлайн-курсы</a>
-            </div>
+<header class="header-exact">
+    <div class="menu-strip">
+        <nav id="main-nav" class="nav-menu">
+            <a href="{{ route('courses.index') }}">Онлайн-курсы</a>
+            <a href="{{ route('practices') }}">Практики</a>
+            <a href="{{ route('teachers') }}">Преподаватели</a>
 
-            <div>
-                <a href="{{ route('teachers') }}">Преподаватели</a>
-                <a href="subscription.html">Абонементы</a>
-                {{--                @auth--}}
-                {{--                    <a href="{{ route('profile') }}">Личный кабинет</a>--}}
-                {{--                @else--}}
-                {{--                    <a href="{{ route('login.form') }}">Войти</a>--}}
-                {{--                @endauth--}}
-            </div>
+            <span class="spacer"></span>
+
+            <a href="{{ route('events.index') }}">Расписание</a>
+            <a href="{{ route('subscriptions') }}">Абонементы</a>
+
+            @auth
+                <a href="{{ route('profile') }}">Личный кабинет</a>
+            @else
+                <a href="{{ route('login.form') }}">Войти</a>
+            @endauth
         </nav>
+
+        <div class="burger-btn" id="burger-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
-    <a href="{{ route('home') }}" class="logo">
+    <a href="{{ route('home') }}" class="logo-overlay">
         <img src="{{ asset('img/logo.png') }}" alt="Логотип">
     </a>
-
-    <img src="img/icons/menu.png" alt="Меню" id="burger-menu">
 </header>
 <main class="container">
     <div class="viro">
@@ -48,6 +51,12 @@
             <aside class="sidebar">
                 <h2>Меню</h2>
                 <ul class="nav">
+                    <li><a href="{{ route('admin.applications.index') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+                                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                            </svg>
+                            Записи</a></li>
                     <li><a href="{{ route('admin.subscriptions.index') }}">
                             <svg viewBox="0 0 24 24">
                                 <path
@@ -60,35 +69,26 @@
                                     d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                             </svg>
                             Практики</a></li>
-                    <li><a href="{{ route('admin.applications.index') }}">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.501 0-4.88-.83-6.75-2.24l1.22-1.22c1.61 1.06 3.69 1.67 5.53 1.67s3.92-.61 5.53-1.67l1.22 1.22C16.88 17.37 14.5 18.2 12 18.2z"/>
-                            </svg>
-                            Записи</a></li>
                     <li><a href="{{ route('admin.teachers.index') }}">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.501 0-4.88-.83-6.75-2.24l1.22-1.22c1.61 1.06 3.69 1.67 5.53 1.67s3.92-.61 5.53-1.67l1.22 1.22C16.88 17.37 14.5 18.2 12 18.2z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
                             </svg>
                             Преподаватели</a></li>
                     <li><a href="{{ route('admin.courses.index') }}">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.501 0-4.88-.83-6.75-2.24l1.22-1.22c1.61 1.06 3.69 1.67 5.53 1.67s3.92-.61 5.53-1.67l1.22 1.22C16.88 17.37 14.5 18.2 12 18.2z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
+                                <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5h11zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5z"/>
                             </svg>
                             Онлайн-курсы</a></li>
                     <li><a href="{{ route('admin.calls.index') }}">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.501 0-4.88-.83-6.75-2.24l1.22-1.22c1.61 1.06 3.69 1.67 5.53 1.67s3.92-.61 5.53-1.67l1.22 1.22C16.88 17.37 14.5 18.2 12 18.2z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
                             </svg>
                             Звонки</a></li>
                 </ul>
             </aside>
-            <main class="content">
+            <section class="content">
                 @yield('content')
-            </main>
+            </section>
         </div>
     </div>
 </main>
@@ -118,9 +118,9 @@
             <p>Мы в социальных сетях</p>
 
             <div>
-                <img src="img/icons/youtube.svg" alt="YouTube">
-                <img src="img/icons/telegram.png" alt="Telegram">
-                <img src="img/icons/instagram.svg" alt="Instagram">
+                <img src="{{ asset('img/icons/youtube.svg') }}" alt="YouTube">
+                <img src="{{ asset('img/icons/telegram.png') }}" alt="Telegram">
+                <img src="{{ asset('img/icons/instagram.svg') }}" alt="Instagram">
             </div>
         </div>
     </div>

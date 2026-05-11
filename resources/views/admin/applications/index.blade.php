@@ -16,15 +16,18 @@
         </tr>
         </thead>
         <tbody>
+        @foreach($applications as $app)
         <tr>
-            <td data-label="Имя">Анна Иванова</td>
-            <td data-label="Телефон">+7 999 123-45-67</td>
-            <td data-label="Услуга / Абонемент">Абонемент на 10 занятий</td>
-            <td data-label="Дата">2025-04-05</td>
+            <td data-label="Имя">{{ $app->user->name }}</td>
+            <td data-label="Телефон">{{ $app->user->phone }}</td>
+            <td data-label="Услуга / Абонемент">{{ $app->applicable->name }}</td>
+            <td data-label="Дата">{{ date_format($app->created_at, 'd/m/y') }}</td>
             <td data-label="Действия" class="actions">
                 <button class="delete-btn">Удалить</button>
             </td>
         </tr>
+        @endforeach
+
         </tbody>
     </table>
 @endsection

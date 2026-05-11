@@ -15,92 +15,13 @@
 </head>
 
 <body>
-<style>
-    /* Основной контейнер шапки */
-    .header-exact {
-        position: relative;
-        width: 100%;
-    }
-
-    /* Коричневая полоса */
-    .menu-strip {
-        height: 70px; /* Высота полосы */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        position: relative;
-        z-index: 1; /* Полоса на заднем плане относительно лого */
-    }
-
-    /* Меню внутри полосы */
-    .menu-strip nav {
-        display: flex;
-        align-items: center;
-        gap: 30px; /* Расстояние между словами */
-        white-space: nowrap; /* Запрещаем перенос строк */
-    }
-
-    .menu-strip nav a {
-        color: #E8DCC5; /* Светло-бежевый цвет текста */
-        text-decoration: none;
-        font-size: 14px;
-        text-transform: uppercase; /* Все буквы заглавные, как на фото */
-        letter-spacing: 1px;
-        transition: opacity 0.2s;
-    }
-
-    .menu-strip nav a:hover {
-        opacity: 0.7;
-    }
-
-    /* Заглушка под логотип, чтобы раздвинуть текст слева и справа */
-    .spacer {
-        width: 140px; /* Ширина равна ширине логотипа + небольшие отступы */
-        display: inline-block;
-    }
-
-    /* ЛОГОТИП - самое главное */
-    .logo-overlay {
-        position: absolute;
-        left: 50%;
-        top: 70%; /* Центр по вертикали относительно полосы */
-        transform: translate(-50%, -50%); /* Точное центрирование */
-
-        z-index: 10; /* Логотип выше полосы */
-    }
-
-    .logo-overlay img {
-        width: 80%; /* Размер картинки внутри круга */
-        height: auto;
-        display: block;
-    }
-
-    /* Адаптив для мобильных (упрощенный) */
-    @media (max-width: 900px) {
-        .menu-strip nav {
-            gap: 15px;
-            font-size: 12px;
-        }
-        .spacer {
-            width: 100px;
-        }
-        .logo-overlay {
-            width: 100px;
-            height: 100px;
-        }
-    }
-</style>
 <header class="header-exact">
-    <!-- Сплошная коричневая полоса с меню -->
     <div class="menu-strip">
-        <nav>
+        <nav id="main-nav" class="nav-menu">
             <a href="{{ route('courses.index') }}">Онлайн-курсы</a>
             <a href="{{ route('practices') }}">Практики</a>
             <a href="{{ route('teachers') }}">Преподаватели</a>
 
-            <!-- Пустой элемент-заглушка для места под логотипом,
-                 чтобы текст не прятался под ним полностью, или можно оставить как есть -->
             <span class="spacer"></span>
 
             <a href="{{ route('events.index') }}">Расписание</a>
@@ -112,13 +33,19 @@
                 <a href="{{ route('login.form') }}">Войти</a>
             @endauth
         </nav>
+
+        <div class="burger-btn" id="burger-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
-    <!-- Логотип, который лежит ПОВЕРХ полосы -->
     <a href="{{ route('home') }}" class="logo-overlay">
         <img src="{{ asset('img/logo.png') }}" alt="Логотип">
     </a>
 </header>
+@yield('banner')
 <main class="container">
     @yield('content')
 </main>

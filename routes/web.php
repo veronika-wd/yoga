@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\Course\LessonController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Auth\LoginController;
@@ -28,7 +29,7 @@ Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('su
 Route::get('/subscriptions/{subscription}', [SubscriptionController::class, 'show'])->name('subscriptions.show');
 
 // Преподаватели
-Route::view('/teachers', 'teachers')->name('teachers');
+Route::get('/teachers', [HomeController::class, 'teachers'])->name('teachers');
 
 // Курсы
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
@@ -89,7 +90,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::delete('/events/{event}', [\App\Http\Controllers\Admin\EventController::class, 'destroy'])->name('events.destroy');
 
     // Записи
-    Route::view('/applications', 'admin.applications.index')->name('applications.index');
+    Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
 
     // Преподаватели
     Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers.index');

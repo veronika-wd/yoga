@@ -12,8 +12,9 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('status')->default(TeacherStatusEnum::STATUS);
+            $table->string('status');
             $table->text('description')->nullable();
+            $table->string('image');
             $table->timestamps();
         });
     }

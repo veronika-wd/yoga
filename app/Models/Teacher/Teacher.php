@@ -8,7 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 #[Guarded(['id'])]
 class Teacher extends Model
 {
-    protected $casts = [
-        'status' => TeacherStatusEnum::class,
-    ];
 }

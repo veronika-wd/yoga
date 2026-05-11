@@ -1,0 +1,32 @@
+.btn {
+    width: fit-content;
+    height: fit-content;
+    color: #1D1D1D;
+    background: linear-gradient(to right, #F0E7C7, #C2A379);
+    outline: none;
+    border: none;
+    -webkit-border-radius: 50px !important;
+    -moz-border-radius: 50px !important;
+    border-radius: 50px !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.btn-enroll {
+    display: inline-block;
+    padding: 16px 48px;
+    background: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 50px;
+}
+
+.btn-enroll:hover {
+    background: var(--color-secondary);
+}

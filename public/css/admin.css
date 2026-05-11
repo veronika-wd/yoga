@@ -161,6 +161,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: var(--transition);
+    text-decoration: none;
 
     color: #1D1D1D;
     background: linear-gradient(to right, #F0E7C7, #C2A379);
@@ -204,15 +205,24 @@ tr:hover {
 .delete-btn {
     color: #1D1D1D;
     background: linear-gradient(to right, #F0E7C7, #C2A379);
+    text-decoration: none;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: bold;
 }
 
 .delete-btn:hover {
     background: linear-gradient(to right, #f0e7c7df, #c2a479d1);
 }
 
-@media (max-width: 768px) {
-    .viro {
-        margin: 20px 20px 20px 20px;
+@media (min-width: 425px) and (max-width: 768px) {
+    .dashboard {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
     }
 
     .form-group {
@@ -469,159 +479,4 @@ tr:hover {
 
 .file-upload-wrapper.has-error .file-upload-error {
     display: block;
-}
-
-.video-upload-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 500px; /* Чуть шире для видео */
-    font-family: inherit;
-}
-
-.video-upload-wrapper input[type="file"] {
-    display: none;
-}
-
-/* --- Зона загрузки --- */
-.video-upload-zone {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 18px;
-    border: 2px dashed #d4c5a9;
-    border-radius: 12px;
-    background: #faf8f5;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.video-upload-zone:hover {
-    border-color: #b8a88a;
-    background: #f5f1eb;
-}
-
-.video-upload-zone.dragover {
-    border-color: #8b7355;
-    background: #f0ebe3;
-    box-shadow: 0 0 0 4px rgba(184, 168, 138, 0.15);
-}
-
-/* Иконка Play для видео */
-.video-upload-icon {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #e8dcc8 0%, #d4c5a9 100%);
-    border-radius: 50%; /* Круглая иконка для акцента */
-    flex-shrink: 0;
-}
-
-.video-upload-icon svg {
-    width: 20px;
-    height: 20px;
-    color: #6b5b45;
-    margin-left: 3px; /* Визуальная коррекция треугольника */
-}
-
-/* Текст в зоне */
-.video-upload-text {
-    flex: 1;
-}
-
-.video-upload-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #5a4a3a;
-    margin-bottom: 2px;
-}
-
-.video-upload-hint {
-    display: block;
-    font-size: 12px;
-    color: #9a8b7a;
-}
-
-/* --- Превью видео --- */
-.video-preview-wrapper {
-    margin-top: 14px;
-    position: relative;
-    display: none;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 14px rgba(90, 74, 58, 0.12);
-    border: 2px solid #e8dcc8;
-    animation: slideDown 0.3s ease;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.video-preview-wrapper.visible {
-    display: block;
-}
-
-.video-preview-wrapper video {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 300px;
-    background: #000;
-    outline: none;
-}
-
-/* Кнопка удаления видео */
-.video-remove-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.video-remove-btn:hover {
-    background: #fff;
-    transform: scale(1.1);
-}
-
-.video-remove-btn svg {
-    width: 16px;
-    height: 16px;
-    color: #5a4a3a;
-}
-
-/* --- Сообщение об ошибке --- */
-.video-upload-error {
-    margin-top: 6px;
-    font-size: 13px;
-    color: #d45d5d;
-    display: none;
-}
-
-.video-upload-wrapper.has-error .video-upload-error {
-    display: block;
-}
-
-.video-upload-wrapper.has-error .video-upload-zone {
-    border-color: #d45d5d;
-    background: #fef2f2;
 }
