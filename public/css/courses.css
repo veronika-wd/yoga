@@ -1,17 +1,3 @@
-/* Основные переменные в стиле GONG YOGA */
-:root {
-    --color-primary: #8b7355;
-    --color-secondary: #a89080;
-    --color-text-dark: #4a4a48;
-    --color-text-light: #6b6b6b;
-    --color-bg: #faf9f7;
-    --color-border: #e8e4dc;
-    --color-cream: #f5f1e8;
-    --radius: 30px;
-    --transition: all 0.3s ease;
-}
-
-/* Карточка курса */
 .course-card {
     background: var(--color-bg);
     border: 1px solid var(--color-border);
@@ -29,7 +15,6 @@
     background: var(--color-cream);
 }
 
-/* Заголовок */
 .course-title {
     font-size: 22px;
     font-weight: 400;
@@ -39,7 +24,6 @@
     line-height: 1.4;
 }
 
-/* Описание */
 .course-description {
     font-size: 14px;
     line-height: 1.7;
@@ -49,7 +33,6 @@
     word-wrap: break-word;
 }
 
-/* Мета информация */
 .course-meta {
     display: flex;
     justify-content: center;
@@ -59,7 +42,7 @@
     border-bottom: 1px solid var(--color-border);
 }
 
-/* Цена */
+
 .course-price {
     font-size: 24px;
     font-weight: 300;
@@ -67,14 +50,14 @@
     letter-spacing: 1px;
 }
 
-/* Дата */
+
 .course-date {
     font-size: 13px;
     color: var(--color-text-light);
     font-weight: 300;
 }
 
-/* Кнопка */
+
 .course-button {
     display: block;
     width: 100%;
@@ -98,7 +81,6 @@
     color: white;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
     .courses-grid {
         grid-template-columns: 1fr;

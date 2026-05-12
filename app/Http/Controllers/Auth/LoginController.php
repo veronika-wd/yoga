@@ -27,6 +27,6 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        return back();
+        return to_route('home');
     }
 }

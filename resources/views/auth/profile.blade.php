@@ -7,13 +7,21 @@
 @endpush
 
 @section('content')
-    <h2>Личный кабинет</h2>
-    <p class="user-greeting">Добро пожаловать, {{ auth()->user()->name }}</p>
-    <nav class="dashboard-nav" role="tablist">
-        <button class="nav-tab active" data-tab="courses" role="tab" aria-selected="true">Курсы</button>
-        <button class="nav-tab" data-tab="practices" role="tab" aria-selected="false">Практики</button>
-        <button class="nav-tab" data-tab="subscriptions" role="tab" aria-selected="false">Абонементы</button>
-    </nav>
+    <div class="row">
+        <div class="col-sm-12 col-lg-10">
+            <h2>Личный кабинет</h2>
+            <p class="user-greeting">Добро пожаловать, {{ auth()->user()->name }}</p>
+            <nav class="dashboard-nav" role="tablist">
+                <button class="nav-tab active" data-tab="courses" role="tab" aria-selected="true">Курсы</button>
+                <button class="nav-tab" data-tab="practices" role="tab" aria-selected="false">Практики</button>
+                <button class="nav-tab" data-tab="subscriptions" role="tab" aria-selected="false">Абонементы</button>
+            </nav>
+        </div>
+        <div class="col-sm-12 col-lg-2">
+            <a href="{{ route('logout') }}" class="btn-enroll">Выйти</a>
+        </div>
+    </div>
+
 
     <div class="dashboard-content">
         <!-- КУРСЫ -->

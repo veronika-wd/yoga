@@ -214,10 +214,8 @@
     transition: all 0.3s ease;
     border: none;
     border-radius: 50px;
-    /* Кнопки не сжимаются */
     flex-shrink: 0;
 
-    /* Минимальная ширина, чтобы гарантировать скролл при большом количестве */
     min-width: 120px;
 }
 
@@ -225,28 +223,19 @@
     background: var(--color-secondary);
 }
 .navbar-scroll-container {
-    /* Включаем горизонтальный скролл */
     overflow-x: auto;
     overflow-y: hidden;
 
-    /* Запрещаем перенос строк */
     white-space: nowrap;
 
-    /* Используем flex для выравнивания */
     display: flex;
-    gap: 8px; /* Расстояние между кнопками */
+    gap: 8px;
 
-    /* Плавная прокрутка на мобильных */
     -webkit-overflow-scrolling: touch;
 
-    /* Опционально: максимальная ширина, чтобы вызвать скролл даже на больших экранах */
-    /* max-width: 100%; — по умолчанию */
-
-    /* Скрываем стандартные стили navbar, если они мешают */
     padding: 10px 0;
 }
 
-/* Стилизация скроллбара (опционально) */
 .navbar-scroll-container::-webkit-scrollbar {
     height: 6px;
 }
