@@ -30,7 +30,7 @@
             @auth
                 <a href="{{ route('profile') }}">Личный кабинет</a>
             @else
-                <a href="{{ route('login.form') }}">Войти</a>
+                <a href="{{ route('login.form') }}" class="ms-5">Войти               </a>
             @endauth
         </nav>
 

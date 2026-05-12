@@ -125,7 +125,6 @@ header {
     justify-content: center;
     align-items: center;
     gap: 25px;
-    z-index: -1;
     background: url("../img/banner.png") no-repeat center / cover;
 }
 
@@ -166,6 +165,15 @@ header {
     padding: 20px 100px;
     font-size: 20px;
     font-weight: 400;
+    color: #1D1D1D;
+    background: linear-gradient(to right, #F0E7C7, #C2A379);
+    outline: none;
+    border: none;
+    -webkit-border-radius: 50px !important;
+    -moz-border-radius: 50px !important;
+    border-radius: 50px !important;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .about {
