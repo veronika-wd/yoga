@@ -4,13 +4,14 @@ const form = document.getElementById('startForm');
     form.addEventListener('submit', function(event) {
         event.preventDefault();
         const name = form.name.value.trim();
-        const phone = form.phone_number.value.trim();
+        const phone = form.phone.value.trim();
 
         if (name === '' || phone === '') {
             alert('Пожалуйста, заполните все поля.');
             return;
         }
         modal.style.display = 'flex';
+        form.submit();
         form.reset();
     });
     closeModalBtn.addEventListener('click', function() {
