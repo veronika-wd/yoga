@@ -80,7 +80,8 @@
     </div>
 
 
-    <form class="start" id="startForm">
+    <form class="start" id="startForm" action="{{ route('calls.store') }}" method="post">
+        @csrf
         <div class="header">
             <h2>Не знаете, с чего начать?</h2>
             <p>Заполните форму ниже, мы свяжемся с Вами и поможем подобрать направление</p>
@@ -88,7 +89,7 @@
 
         <div class="fields">
             <input type="text" name="name" id="name" placeholder="Имя">
-            <input type="tel" name="phone_number" id="phone_number" placeholder="Номер телефона">
+            <input type="tel" name="phone" id="phone_number" placeholder="Номер телефона">
             <button type="submit" class="btn" id="btn">Отправить</button>
         </div>
     </form>
